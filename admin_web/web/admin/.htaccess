@@ -1,0 +1,14 @@
+DirectoryIndex index.html
+
+RewriteEngine On
+
+# Giữ file tĩnh
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Giữ thư mục
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# SPA fallback
+RewriteRule . index.html [L]

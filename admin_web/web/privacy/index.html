@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chính sách quyền riêng tư</title>
+    <style>
+      :root { --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --link:#60a5fa; }
+      *{box-sizing:border-box}
+      body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#0b1022,#0f172a 40%,#0b1022);color:var(--text);min-height:100vh}
+      .container{max-width:900px;margin:0 auto;padding:24px}
+      .card{background:rgba(255,255,255,0.04);backdrop-filter:saturate(160%) blur(10px);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px}
+      h1{margin:0 0 12px;font-size:28px}
+      h2{margin:24px 0 8px;font-size:20px}
+      p{color:var(--muted);line-height:1.6}
+      ul{color:var(--muted)}
+      a{color:var(--link)}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>Chính sách quyền riêng tư</h1>
+        <p>Cập nhật lần cuối: <strong><script>document.write(new Date().toISOString().slice(0,10))</script></strong></p>
+
+        <p>Chính sách này mô tả cách chúng tôi xử lý dữ liệu khi bạn sử dụng ứng dụng di động và website tại <a href="/">trang chủ</a>. Mục tiêu là minh bạch, tối giản thu thập dữ liệu, và bảo vệ quyền riêng tư của người dùng.</p>
+
+        <h2>1. Phạm vi áp dụng</h2>
+        <p>Áp dụng cho: website (landing, /support, /privacy, /terms) và khu vực quản trị (/admin) dành cho quản trị viên.</p>
+
+        <h2>2. Dữ liệu chúng tôi thu thập</h2>
+        <ul>
+          <li><strong>Tài khoản quản trị</strong>: email và mật khẩu do quản trị viên cung cấp để đăng nhập (qua Firebase Authentication).</li>
+          <li><strong>Dữ liệu cấu hình</strong>: các liên kết hỗ trợ (Facebook/Telegram/Zalo/SMS/Gmail) và tên miền hiển thị do quản trị viên nhập để hiển thị cho người dùng.</li>
+          <li><strong>Không thu thập</strong>: vị trí, danh bạ, ảnh/tệp, dữ liệu nhạy cảm trên thiết bị; không theo dõi hành vi người dùng cuối.</li>
+        </ul>
+
+        <h2>3. Mục đích sử dụng dữ liệu</h2>
+        <ul>
+          <li>Vận hành tính năng hiển thị liên kết YouTube và các kênh hỗ trợ cho người dùng.</li>
+          <li>Xác thực quản trị viên, quản lý cấu hình hiển thị.</li>
+          <li>Nâng cao bảo mật, phòng chống lạm dụng và đảm bảo tính sẵn sàng của dịch vụ.</li>
+        </ul>
+
+        <h2>4. Nơi lưu trữ và bảo mật</h2>
+        <ul>
+          <li>Dữ liệu lưu trên Google Firebase (Authentication, Firestore). Truyền tải qua HTTPS, kiểm soát truy cập bằng Firestore Security Rules.</li>
+          <li>Quản trị viên chịu trách nhiệm bảo vệ thông tin đăng nhập; khuyến nghị dùng mật khẩu mạnh và không chia sẻ cho bên thứ ba.</li>
+        </ul>
+
+        <h2>5. Chia sẻ với bên thứ ba</h2>
+        <p>Chúng tôi không bán dữ liệu cá nhân. Bên thứ ba duy nhất là nhà cung cấp hạ tầng (Google Firebase) xử lý dữ liệu theo điều khoản dịch vụ của họ.</p>
+
+        <h2>6. Lưu giữ dữ liệu</h2>
+        <ul>
+          <li>Dữ liệu quản trị và cấu hình được lưu cho đến khi quản trị viên xóa hoặc yêu cầu xóa.</li>
+          <li>Trường hợp ngừng dịch vụ, chúng tôi sẽ thông báo trước (nếu có thể) để quản trị viên xuất/di chuyển dữ liệu.</li>
+        </ul>
+
+        <h2>7. Quyền của người dùng</h2>
+        <ul>
+          <li>Người dùng cuối có thể không cần cung cấp dữ liệu cá nhân để sử dụng trang hỗ trợ.</li>
+          <li>Quản trị viên có thể yêu cầu cập nhật/xóa dữ liệu tài khoản và cấu hình bằng cách liên hệ kênh hỗ trợ.</li>
+        </ul>
+
+        <h2>8. Trẻ em</h2>
+        <p>Nếu sản phẩm hướng đến đối tượng bao gồm trẻ em dưới 13 tuổi, quản trị viên phải đảm bảo tuân thủ các quy định hiện hành (ví dụ: COPPA). Ứng dụng không chủ đích thu thập dữ liệu từ trẻ em.</p>
+
+        <h2>9. Cookie & theo dõi</h2>
+        <p>Trang tĩnh có thể sử dụng bộ nhớ trình duyệt ở mức tối thiểu cho chức năng. Không triển khai công cụ theo dõi hành vi mặc định.</p>
+
+        <h2>10. Thay đổi chính sách</h2>
+        <p>Chúng tôi có thể cập nhật chính sách bất kỳ lúc nào. Phiên bản mới sẽ hiển thị tại trang này cùng ngày hiệu lực.</p>
+
+        <h2>11. Liên hệ</h2>
+        <p>Mọi thắc mắc vui lòng liên hệ qua các kênh tại <a href="/support">/support</a>.</p>
+
+        <p><a href="/">← Quay lại trang chủ</a></p>
+      </div>
+    </div>
+  </body>
+  </html>
+
+

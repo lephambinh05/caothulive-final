@@ -1,0 +1,12 @@
+{
+    "name": "YouTube Link Manager - Admin",
+    "short_name": "YT Link Admin",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "Admin panel for managing YouTube links",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": []
+}

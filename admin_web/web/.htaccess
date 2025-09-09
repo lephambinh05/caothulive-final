@@ -1,0 +1,31 @@
+DirectoryIndex index.html
+
+RewriteEngine On
+
+# Serve static special pages first
+RewriteRule ^support/?$ /support/index.html [L]
+RewriteRule ^privacy/?$ /privacy/index.html [L]
+
+# Admin SPA - prefer static files in /admin
+RewriteCond %{REQUEST_URI} ^/admin/
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_URI} ^/admin/
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Admin SPA fallback
+RewriteRule ^admin/?$ /admin/index.html [L]
+RewriteRule ^admin/(.*)$ /admin/index.html [L]
+
+# Root: serve files/folders if exist
+RewriteCond %{REQUEST_URI} !^/admin/
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_URI} !^/admin/
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Fallback to landing
+RewriteRule ^$ /index.html [L]
+RewriteRule ^(.*)$ /index.html [L]

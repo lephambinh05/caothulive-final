@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hỗ trợ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+      :root { --bg:#0f172a; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --primary:#2563EB; }
+      *{box-sizing:border-box}
+      body{margin:0;font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;background:linear-gradient(180deg,#0b1022,#0f172a 40%,#0b1022);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+      .card{background:rgba(255,255,255,0.04);backdrop-filter:saturate(160%) blur(10px);border:1px solid rgba(255,255,255,0.07);border-radius:16px;max-width:760px;width:100%;padding:24px}
+      h1{margin:0 0 6px 0;font-weight:700;letter-spacing:-.02em}
+      p{margin:0;color:var(--muted)}
+      .grid{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+      .btn{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:#0b1220;color:#fff;text-decoration:none;transition:transform .1s ease, background .2s ease}
+      .btn:hover{transform:translateY(-1px);background:#0d1530}
+      .icon{width:22px;height:22px;display:inline-block}
+      .tag{display:inline-block;padding:2px 8px;border-radius:999px;background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.35);color:#cfe0ff;font-size:12px}
+      .footer{margin-top:14px;font-size:12px;color:var(--muted)}
+    </style>
+    <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script defer src="/js/firebase-config.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  </head>
+  <body>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <h1>Liên hệ hỗ trợ</h1>
+          <p>Các kênh liên hệ được quản trị viên cấu hình.</p>
+        </div>
+        <span class="tag">Trang tĩnh</span>
+      </div>
+      <div id="grid" class="grid"></div>
+      <div class="footer">Nếu chưa thấy nút nào, vui lòng liên hệ quản trị viên.</div>
+    </div>
+
+    <script>
+      // Firebase web config (public) — lấy từ admin_web/lib/firebase_options.dart
+
+      // Icons as inline SVG
+      const ICONS = {
+        facebook: '<svg class="icon" viewBox="0 0 24 24" fill="#1877F2" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9V12.06h2.54V9.91c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.81h2.78l-.44 2.91h-2.34v7.03C18.34 21.21 22 17.06 22 12.06Z"/></svg>',
+        telegram: '<svg class="icon" viewBox="0 0 24 24" fill="#2AABEE" xmlns="http://www.w3.org/2000/svg"><path d="M9.04 15.47 8.9 19.7c.4 0 .58-.17.79-.38l1.9-1.83 3.94 2.88c.72.39 1.24.19 1.43-.66l2.6-12.21.01-.01c.23-1.05-.38-1.46-1.08-1.21L3.6 9.73c-1.03.4-1.01.98-.18 1.24l4.74 1.48 10.99-6.51c.52-.32 1-.14.61.18L9.04 15.47Z"/></svg>',
+        zalo: '<svg class="icon" viewBox="0 0 24 24" fill="#0068FF" xmlns="http://www.w3.org/2000/svg"><path d="M4 3h16a1 1 0 0 1 1 1v12.5A3.5 3.5 0 0 1 17.5 20H8l-3.5 2v-2.5A3.5 3.5 0 0 1 1 16.5V4a1 1 0 0 1 1-1Z"/></svg>',
+        sms: '<svg class="icon" viewBox="0 0 24 24" fill="#10B981" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/></svg>',
+        gmail: '<svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#EA4335" d="M12 12.713 1.2 5.25A2 2 0 0 1 2 5h20c.282 0 .553.06.8.168L12 12.713Z"/><path fill="#34A853" d="M12 12.713 2 5v14a2 2 0 0 0 2 2h4V12l4 2.75 4-2.75V21h4a2 2 0 0 0 2-2V5l-10 7.713Z"/></svg>'
+      };
+
+      function makeButton(label, url, kind){
+        const a = document.createElement('a');
+        a.className = 'btn';
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.innerHTML = `${ICONS[kind] || ''}<span>${label}</span>`;
+        return a;
+      }
+
+      window.addEventListener('load', async () => {
+        try {
+          const app = window.initFirebaseApp();
+          const db = firebase.firestore(app);
+          const doc = await db.collection('settings').doc('support').get();
+          const data = doc.exists ? doc.data() || {} : {};
+          const grid = document.getElementById('grid');
+
+          const entries = [
+            { k:'facebook', label:'Facebook' },
+            { k:'telegram', label:'Telegram' },
+            { k:'zalo', label:'Zalo' },
+            { k:'sms', label:'SMS' },
+            { k:'gmail', label:'Gmail' },
+          ];
+
+          let count = 0;
+          for (const e of entries){
+            const val = (data[e.k] || '').toString().trim();
+            if (val){
+              grid.appendChild(makeButton(e.label, val, e.k));
+              count++;
+            }
+          }
+
+          if (!count){
+            const p = document.createElement('p');
+            p.style.color = 'var(--muted)';
+            p.textContent = 'Chưa có kênh hỗ trợ nào.';
+            grid.appendChild(p);
+          }
+        } catch (err) {
+          const grid = document.getElementById('grid');
+          const p = document.createElement('p');
+          p.style.color = '#fca5a5';
+          p.textContent = 'Không thể tải dữ liệu hỗ trợ: ' + (err && err.message ? err.message : err);
+          grid.appendChild(p);
+        }
+      });
+    </script>
+  </body>
+  </html>
+
+
