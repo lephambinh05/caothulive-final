@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "696748829509",
+    "project_id": "quanly20m",
+    "storage_bucket": "quanly20m.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696748829509:android:0a033739d2a44a4d01ac2c",
+        "android_client_info": {
+          "package_name": "com.quanlylink20m.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1aJN0ZK2XJ7Ye86n6A9gi2Z2o8KoohWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

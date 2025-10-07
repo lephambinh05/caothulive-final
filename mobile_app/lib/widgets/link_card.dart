@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import '../models/youtube_link.dart';
+import '../config.dart';
 
 class LinkCard extends StatefulWidget {
   final YouTubeLink link;
@@ -143,7 +144,7 @@ class _LinkCardState extends State<LinkCard> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: widget.link.priorityColor,
+                          color: getPriorityColor(widget.link.priority),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(

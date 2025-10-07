@@ -8,6 +8,7 @@ import '../main.dart';
 import '../widgets/admin_shell.dart';
 import '../widgets/link_form_dialog.dart';
 import '../widgets/confirm_dialog.dart';
+import 'admin_downloads.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key});
@@ -147,10 +148,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
         if (i == 0) return;
         if (i == 1) {
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => const AdminSettingsScreen()),
+            MaterialPageRoute(builder: (_) => const AdminDownloadsScreen()),
           );
         }
         if (i == 2) {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => const AdminSettingsScreen()),
+          );
+        }
+        if (i == 3) {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (_) => const AdminSupportScreen()),
           );

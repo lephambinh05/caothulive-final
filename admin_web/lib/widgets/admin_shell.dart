@@ -46,6 +46,7 @@ class AdminShell extends StatelessWidget {
       ),
       destinations: const [
         NavigationRailDestination(icon: Icon(Icons.dashboard_outlined), selectedIcon: Icon(Icons.dashboard), label: Text('Dashboard')),
+        NavigationRailDestination(icon: Icon(Icons.download_outlined), selectedIcon: Icon(Icons.download), label: Text('Downloads')),
         NavigationRailDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: Text('Cài đặt')),
         NavigationRailDestination(icon: Icon(Icons.support_agent_outlined), selectedIcon: Icon(Icons.support_agent), label: Text('Hỗ trợ')),
       ],
@@ -153,8 +154,8 @@ class AdminShell extends StatelessWidget {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.settings_outlined),
-                      title: const Text('Cài đặt'),
+                      leading: const Icon(Icons.download_outlined),
+                      title: const Text('Downloads'),
                       selected: selectedIndex == 1,
                       onTap: () {
                         Navigator.of(context).pop();
@@ -162,12 +163,21 @@ class AdminShell extends StatelessWidget {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.support_agent_outlined),
-                      title: const Text('Hỗ trợ'),
+                      leading: const Icon(Icons.settings_outlined),
+                      title: const Text('Cài đặt'),
                       selected: selectedIndex == 2,
                       onTap: () {
                         Navigator.of(context).pop();
                         onDestinationSelected?.call(2);
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.support_agent_outlined),
+                      title: const Text('Hỗ trợ'),
+                      selected: selectedIndex == 3,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        onDestinationSelected?.call(3);
                       },
                     ),
                     const Divider(),

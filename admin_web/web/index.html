@@ -1,95 +1,414 @@
 <!DOCTYPE html>
 <html lang="vi">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Giới thiệu website</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YouTube Links</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="manifest" href="/manifest.json">
+  
     <style>
       :root {
-        --bg:#0b1022; --bg2:#0f172a; --text:#e6e9f2; --muted:#9aa3b2; --primary:#2563EB; --primary2:#7c9dff; --card:#0c1426;
-        --glass: rgba(255,255,255,.05); --glass-border: rgba(255,255,255,.08);
-      }
-      *{box-sizing:border-box}
-      body{
-        margin:0; font-family:Inter, system-ui,-apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text);
-        background: radial-gradient(1200px 600px at 10% -10%, #1d2a55 0%, transparent 60%),
-                    radial-gradient(1000px 500px at 110% 0%, #1b3a8a 0%, transparent 60%),
-                    linear-gradient(180deg,var(--bg),var(--bg2) 40%,var(--bg));
-      }
-      .wrap{min-height:100vh;display:flex;flex-direction:column}
-      header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;max-width:1160px;margin:0 auto}
-      header .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}
-      header .brand:before{content:"";display:inline-block;width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,var(--primary),var(--primary2));}
-      header nav a{color:var(--text);text-decoration:none;margin-left:16px;opacity:.9}
-      header nav a:hover{opacity:1}
-      .hero{position:relative;flex:1;display:flex;align-items:center;justify-content:center;padding:28px}
-      .orb{position:absolute;inset:0;pointer-events:none;opacity:.35;background:
-        radial-gradient(600px 300px at 20% 10%, rgba(124,157,255,.3), transparent 60%),
-        radial-gradient(600px 300px at 80% 0%, rgba(37,99,235,.25), transparent 60%);
-        filter: blur(20px);
-      }
-      .hero-inner{position:relative;max-width:1080px;width:100%;display:grid;grid-template-columns:1.2fr .8fr;gap:28px}
-      .card{background:var(--glass);backdrop-filter:saturate(160%) blur(10px);border:1px solid var(--glass-border);border-radius:18px;padding:26px}
-      .h-title{font-size:44px;line-height:1.08;margin:0 0 12px 0;letter-spacing:-.02em}
-      .h-sub{color:var(--muted);margin:0 0 18px}
-      .actions{display:flex;gap:14px;flex-wrap:wrap}
-      .btn{display:inline-flex;align-items:center;gap:10px;padding:13px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;text-decoration:none;box-shadow:0 10px 24px rgba(37,99,235,.25)}
-      .btn:hover{transform:translateY(-1px)}
-      .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:18px}
-      .feature{padding:16px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06)}
-      .illus{display:flex;align-items:center;justify-content:center}
-      .illus svg{max-width:100%;height:auto}
-      footer{padding:18px 22px;text-align:center;color:var(--muted)}
-      footer a{color:#9ec1ff;text-decoration:none}
-      @media (max-width:980px){ .hero-inner{grid-template-columns:1fr} .h-title{font-size:34px} }
+      --red: #dc2626;
+      --red-dark: #b91c1c;
+      --green: #10b981;
+      --green-dark: #059669;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --gray: #6b7280;
+      --white: #ffffff;
+      --black: #000000;
+      --bg: #f8fafc;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      color: var(--white);
+      padding: 16px 20px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .header-title {
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+      flex: 1;
+    }
+    
+    .header-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .header-buttons {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    
+    .header-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .header-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    
+    .filter-tabs{display:none}
+    
+    /* filter-tab removed */
+    
+    
+    
+    
+    
+    .dot.red { background: var(--red); }
+    .dot.orange { background: var(--orange); }
+    .dot.blue { background: var(--blue); }
+    .dot.gray { background: var(--gray); }
+    
+    .main-content {
+      padding: 20px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    
+    .video-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    .card-top {
+      background: linear-gradient(135deg, #059669, #047857);
+      padding: 0;
+      color: var(--white);
+      position: relative;
+      aspect-ratio: 16/9;
+      min-height: 200px;
+    }
+    
+    .video-thumbnail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 1;
+      z-index: 1;
+      border-radius: 16px 16px 0 0;
+    }
+    
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .card-brand {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+    
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 14px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    
+    .card-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    
+    .logo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    
+    .logo-text {
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .plus-icon {
+      font-size: 18px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+    
+    .card-bottom {
+      padding: 20px;
+      background: var(--white);
+    }
+    
+    .video-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--black);
+      line-height: 1.3;
+    }
+    
+    .video-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .video-date {
+      color: var(--gray);
+      font-size: 14px;
+    }
+    
+    .priority-badge {
+      background: var(--blue);
+      color: var(--white);
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .play-button {
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+    
+    .play-button:hover {
+      background: var(--red-dark);
+    }
+    
+    .play-icon {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray);
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray);
+    }
     </style>
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="/js/firebase-config.js"></script>
   </head>
   <body>
-    <div class="wrap">
-      <header>
-        <div class="brand">CaoThuLive.Com</div>
-        <nav>
-          <a href="/support">Hỗ trợ</a>
-          <a href="/privacy">Chính sách</a>
-        </nav>
-      </header>
-
-      <section class="hero">
-        <div class="orb"></div>
-        <div class="hero-inner">
-          <div class="card">
-            <h1 class="h-title">Ứng dụng quản lý liên kết YouTube – nhanh, gọn, hiệu quả</h1>
-            <p class="h-sub">CaoThuLive.Com giúp bạn gom và trình bày các liên kết YouTube theo ưu tiên, đồng thời cung cấp nút Hỗ trợ để người dùng liên hệ qua Facebook, Telegram, Zalo, SMS, Gmail.</p>
-            <div class="actions">
-              <a class="btn" href="/support">▶ Hỗ trợ</a>
-            </div>
-            <div class="features">
-              <div class="feature">• Sắp xếp liên kết theo mức độ ưu tiên</div>
-              <div class="feature">• Đồng bộ cơ sở dữ liệu, bảo mật và ổn định</div>
-              <div class="feature">• Nút Hỗ trợ nổi bật, tập trung chuyển đổi</div>
-            </div>
-          </div>
-          <div class="card">
-            <h2 style="margin:0 0 10px">Giới thiệu ngắn</h2>
-            <p class="h-sub" style="margin:0 0 10px">• Admin cấu hình liên kết và kênh liên hệ trong trang quản trị.
-              <br/>• Người dùng chỉ cần mở trang web và bấm “Hỗ trợ” để kết nối nhanh.
-              <br/>• Thiết kế tối ưu cho di động, màu sắc giữ nguyên như bạn yêu cầu.</p>
-            <ul style="margin:0;padding-left:18px;color:var(--muted)">
-              <li>Hỗ trợ các kênh: Facebook, Telegram, Zalo, SMS, Gmail</li>
-              <li>Hiển thị liên kết YouTube theo thứ tự ưu tiên</li>
-              <li>Hiệu năng tốt, tải nhanh, trải nghiệm mượt</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <footer>
-        © <script>document.write(new Date().getFullYear())</script> • <a href="/privacy">Chính sách quyền riêng tư</a>
-      </footer>
+  <div class="header">
+    <div class="header-top">
+      <div></div>
+      <h1 class="header-title">YouTube Links</h1>
+      <a href="/support" class="header-icon" style="text-decoration: none; color: white;">🎧</a>
     </div>
+    <div class="header-buttons">
+      <button class="header-btn">
+        <span>🔴</span>
+        Đang phát trực tiếp
+      </button>
+      <button class="header-btn">
+        <span>📺</span>
+        Kênh của tôi
+      </button>
+    </div>
+    
+          </div>
+
+  <div class="main-content">
+    <div id="loading" class="loading">Đang tải...</div>
+    <div id="empty" class="empty-state" style="display: none;">Chưa có video nào</div>
+    <div id="video-card" class="video-card" style="display: none;">
+      <div class="card-top">
+        <div class="video-thumbnail" id="video-thumbnail"></div>
+        <div class="card-content">
+          <!-- Chỉ hiển thị thumbnail video, không có text -->
+        </div>
+          </div>
+      <div class="card-bottom">
+        <div class="video-title" id="video-title">Video Title</div>
+        <div class="video-meta">
+          <div class="video-date" id="video-date">3/9/2025</div>
+          <div class="priority-badge" id="priority-badge">Ưu tiên: 3</div>
+        </div>
+        <button class="play-button" id="play-button">
+          <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          Xem
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentFilter = 0; // filter disabled, always 0
+    let currentVideo = null;
+
+    function getYouTubeId(url) {
+      const regex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regex);
+      return match ? match[2] : null;
+    }
+
+    function getThumbnail(url) {
+      const videoId = getYouTubeId(url);
+      return videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : '';
+    }
+
+    function priorityName(priority) {
+      switch(priority) {
+        case 1: return 'Rất cao';
+        case 2: return 'Cao';
+        case 3: return 'Trung bình';
+        case 4: return 'Thấp';
+        default: return 'Trung bình';
+      }
+    }
+
+    function updateVideoCard(video) {
+      if (!video) {
+        document.getElementById('video-card').style.display = 'none';
+        document.getElementById('empty').style.display = 'block';
+        return;
+      }
+
+      // Update video info
+      document.getElementById('video-title').textContent = video.title || 'Không có tiêu đề';
+      document.getElementById('video-date').textContent = video.created_at ? 
+        new Date(video.created_at.toDate ? video.created_at.toDate() : video.created_at).toLocaleDateString('vi-VN') : 
+        'Không có ngày';
+      document.getElementById('priority-badge').textContent = `Ưu tiên: ${priorityName(video.priority)}`;
+      document.getElementById('play-button').onclick = () => window.open(video.url, '_blank');
+
+      // Update thumbnail background
+      const thumbnail = getThumbnail(video.url);
+      if (thumbnail) {
+        document.getElementById('video-thumbnail').style.backgroundImage = `url("${thumbnail}")`;
+      }
+
+      document.getElementById('video-card').style.display = 'block';
+      document.getElementById('empty').style.display = 'none';
+    }
+
+    function filterVideos(videos, priority) { return videos; }
+
+    function setupFilters() { /* removed */ }
+
+    function loadVideos() {
+      const app = window.initFirebaseApp && window.initFirebaseApp();
+      if (!app || !window.firebase || !firebase.firestore) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('empty').style.display = 'block';
+        return;
+      }
+
+      const db = firebase.firestore();
+      let query = db.collection('youtube_links').orderBy('priority', 'asc').orderBy('created_at', 'desc');
+
+      query.onSnapshot(snapshot => {
+        const videos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const filteredVideos = filterVideos(videos, currentFilter);
+        
+        document.getElementById('loading').style.display = 'none';
+        
+        if (filteredVideos.length === 0) {
+          document.getElementById('video-card').style.display = 'none';
+          document.getElementById('empty').style.display = 'block';
+        } else {
+          currentVideo = filteredVideos[0];
+          updateVideoCard(currentVideo);
+        }
+      }, error => {
+        console.error('Lỗi Firestore:', error);
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('empty').style.display = 'block';
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      setupFilters();
+      loadVideos();
+    });
+  </script>
   </body>
   </html>

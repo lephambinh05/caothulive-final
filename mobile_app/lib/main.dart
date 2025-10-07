@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'screens/home_screen.dart';
+import 'screens/website_home_screen.dart';
+import 'theme/app_theme.dart';
 
 void main() async {
   await runZonedGuarded(() async {
@@ -44,17 +45,8 @@ class MobileApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'YouTube Link Manager',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        useMaterial3: true,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.red,
-          foregroundColor: Colors.white,
-          elevation: 0,
-        ),
-      ),
-      home: const HomeScreen(),
+      theme: AppTheme.lightTheme,
+      home: const WebsiteHomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,0 +1,50 @@
+rules_version = '2';
+
+// Firebase Storage Rules for Downloads
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Downloads folder - for mobile app files
+    match /downloads/{fileName} {
+      // Allow read access to everyone (public downloads)
+      allow read: if true;
+      
+      // Allow write access only to authenticated admin users
+      allow write: if request.auth != null 
+        && request.auth.token.admin == true
+        && isValidDownloadFile(request.resource);
+      
+      // Allow delete only to authenticated admin users
+      allow delete: if request.auth != null 
+        && request.auth.token.admin == true;
+    }
+    
+    // Helper function to validate download files
+    function isValidDownloadFile(resource) {
+      // Check file size (max 100MB)
+      let fileSizeValid = resource.size < 100 * 1024 * 1024;
+      
+      // Check file extension (.ipa or .apk)
+      let extensionValid = resource.name.matches('.*\\.(ipa|apk)$');
+      
+      // Check content type
+      let contentTypeValid = resource.contentType in [
+        'application/octet-stream',
+        'application/vnd.android.package-archive',
+        'application/iphone'
+      ];
+      
+      // Check metadata exists
+      let hasMetadata = resource.metadata != null
+        && resource.metadata.platform != null
+        && resource.metadata.version != null;
+      
+      return fileSizeValid && extensionValid && contentTypeValid && hasMetadata;
+    }
+    
+    // Default rule - deny all other access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

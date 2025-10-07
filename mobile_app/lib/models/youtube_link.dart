@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../config.dart';
 
 class YouTubeLink {
   final String? id;
@@ -55,18 +56,18 @@ class YouTubeLink {
   String get thumbnailUrl {
     final videoId = this.videoId;
     if (videoId != null) {
-      return 'https://img.youtube.com/vi/$videoId/mqdefault.jpg';
+      return getYouTubeThumbnail(videoId, quality: 'mqdefault');
     }
-    return 'https://via.placeholder.com/320x180?text=YouTube+Video';
+    return PLACEHOLDER_VIDEO_URL;
   }
 
   // URL thumbnail chất lượng cao
   String get highQualityThumbnailUrl {
     final videoId = this.videoId;
     if (videoId != null) {
-      return 'https://img.youtube.com/vi/$videoId/hqdefault.jpg';
+      return getYouTubeThumbnail(videoId, quality: 'hqdefault');
     }
-    return 'https://via.placeholder.com/480x360?text=YouTube+Video';
+    return PLACEHOLDER_VIDEO_URL;
   }
 
   // Lấy tên mức độ ưu tiên
@@ -89,20 +90,7 @@ class YouTubeLink {
 
   // Lấy màu sắc cho mức độ ưu tiên
   Color get priorityColor {
-    switch (priority) {
-      case 1:
-        return Colors.red;
-      case 2:
-        return Colors.orange;
-      case 3:
-        return Colors.blue;
-      case 4:
-        return Colors.grey;
-      case 5:
-        return Colors.grey.shade400;
-      default:
-        return Colors.blue;
-    }
+    return getPriorityColor(priority);
   }
 
   @override

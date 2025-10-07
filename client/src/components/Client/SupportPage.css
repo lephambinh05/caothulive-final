@@ -1,0 +1,292 @@
+.support-page {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #f5f5f5;
+  min-height: 100vh;
+  position: relative;
+}
+
+.page-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: white !important;
+  padding: 15px 5px 15px 5px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  z-index: 1000 !important;
+  height: 60px !important;
+}
+
+.youtube-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  height: 100% !important;
+}
+
+.youtube-logo i {
+  color: #ff0000;
+  font-size: 24px;
+}
+
+.back-btn {
+  background: #8b5cf6 !important;
+  color: white !important;
+  border: none !important;
+  padding: 6px 10px !important;
+  border-radius: 5px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  position: relative !important;
+  right: 0 !important;
+  height: 100% !important;
+}
+
+.support-header {
+  margin-top: 150px !important;
+  margin-bottom: 40px !important;
+  text-align: center !important;
+  padding-top: 20px !important;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.back-btn:hover {
+  background: #7c3aed;
+  transform: translateY(-1px);
+}
+
+.back-btn i {
+  font-size: 9px;
+}
+
+/* Mobile responsive for back button */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 8px 3px 8px 3px !important;
+    align-items: center !important;
+    height: 50px !important;
+  }
+  
+  .youtube-logo {
+    font-size: 14px !important;
+    margin-left: 0 !important;
+    height: 100% !important;
+  }
+  
+  .youtube-logo i {
+    font-size: 18px;
+  }
+  
+  .back-btn {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+    border-radius: 4px !important;
+    gap: 3px !important;
+    margin-right: 0 !important;
+    height: 100% !important;
+  }
+  
+  .back-btn i {
+    font-size: 8px;
+  }
+  
+  .support-header {
+    margin-top: 130px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 6px 2px 6px 2px !important;
+    align-items: center !important;
+    height: 45px !important;
+  }
+  
+  .youtube-logo {
+    font-size: 12px !important;
+    margin-left: 0 !important;
+    height: 100% !important;
+  }
+  
+  .youtube-logo i {
+    font-size: 16px;
+  }
+  
+  .back-btn {
+    padding: 3px 6px !important;
+    font-size: 9px !important;
+    border-radius: 3px !important;
+    gap: 2px !important;
+    margin-right: 0 !important;
+    height: 100% !important;
+  }
+  
+  .back-btn i {
+    font-size: 7px;
+  }
+  
+  .support-header {
+    margin-top: 110px !important;
+  }
+}
+
+.support-header h1 {
+  color: #333;
+  margin: 0 0 10px 0;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center !important;
+  width: 100%;
+}
+
+.support-header p {
+  color: #666;
+  font-size: 18px;
+  margin: 0;
+  text-align: center !important;
+  width: 100%;
+}
+
+.contact-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.contact-field {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.contact-field:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.field-label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: 700;
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.field-label i {
+  width: 24px;
+  text-align: center;
+  color: #8b5cf6;
+  font-size: 20px;
+}
+
+.field-value {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px 20px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.contact-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.contact-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.no-data {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.no-data p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.last-updated {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.last-updated small {
+  color: #999;
+  font-size: 14px;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: #666;
+  font-size: 18px;
+}
+
+/* Font Awesome icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+/* Additional responsive styles */
+@media (max-width: 768px) {
+  .support-page {
+    padding: 20px 15px;
+  }
+  
+  .support-header h1 {
+    font-size: 36px;
+  }
+  
+  .support-header p {
+    font-size: 16px;
+  }
+  
+  .contact-card {
+    padding: 30px 20px;
+  }
+  
+  .field-label {
+    font-size: 16px;
+  }
+  
+  .contact-link {
+    font-size: 14px;
+  }
+}

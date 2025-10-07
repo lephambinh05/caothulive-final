@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab Navigation Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+
+        /* Material Icons */
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+        /* Floating Tabs */
+        .floating-tabs {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            z-index: 100;
+        }
+
+        .tab-container {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: white;
+            border-radius: 30px;
+            padding: 6px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tab buttons */
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: #666;
+            position: relative;
+        }
+
+        .tab-btn:hover {
+            color: #333;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-btn.active {
+            background: #ff0000;
+            color: white;
+            box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 16;
+            font-size: 16px;
+        }
+
+        .test-info {
+            background: white;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .before, .after {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .before {
+            background: #ffebee;
+            border: 2px solid #f44336;
+        }
+
+        .after {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+        }
+
+        .icon-demo {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h1>Tab Navigation Test - Cập nhật</h1>
+        
+        <div class="comparison">
+            <div class="before">
+                <h3>🔴 Trước</h3>
+                <div class="icon-demo">🔴</div>
+                <p><strong>Đang phát trực tiếp</strong></p>
+                <p>Icon: Live dot (chấm đỏ nhấp nháy)</p>
+            </div>
+            
+            <div class="after">
+                <h3>🟢 Sau</h3>
+                <div class="icon-demo">
+                    <span class="material-symbols-outlined">podcasts</span>
+                </div>
+                <p><strong>Trực tiếp</strong></p>
+                <p>Icon: Material Icons "podcasts"</p>
+            </div>
+        </div>
+
+        <h2>Demo Tab Navigation</h2>
+        <div class="floating-tabs">
+            <div class="tab-container">
+                <button class="tab-btn active">
+                    <span class="material-symbols-outlined">podcasts</span>
+                    Trực tiếp
+                </button>
+                <button class="tab-btn">
+                    <span class="material-symbols-outlined">person_add</span>
+                    Đăng ký kênh
+                </button>
+            </div>
+        </div>
+
+        <h2>Thay đổi chi tiết:</h2>
+        <ul>
+            <li><strong>Tab "Trực tiếp":</strong> "Đang phát trực tiếp" → "Trực tiếp"</li>
+            <li><strong>Icon "Trực tiếp":</strong> Live dot (🔴) → Material Icons "podcasts"</li>
+            <li><strong>Tab "Đăng ký kênh":</strong> "Kênh theo dõi" → "Đăng ký kênh"</li>
+            <li><strong>Icon "Đăng ký kênh":</strong> Emoji TV (📺) → Material Icons "person_add"</li>
+            <li><strong>Consistency:</strong> Cả 2 tab đều dùng Material Icons</li>
+            <li><strong>Cleaner:</strong> Text ngắn gọn, dễ đọc</li>
+        </ul>
+
+        <h2>Kiểm tra:</h2>
+        <ul>
+            <li>✅ Tab "Trực tiếp" có icon "podcasts" giống thumbnail card</li>
+            <li>✅ Tab "Đăng ký kênh" có icon "person_add" (người + dấu cộng) phù hợp</li>
+            <li>✅ Text ngắn gọn, dễ đọc cho cả 2 tab</li>
+            <li>✅ Cả 2 tab đều dùng Material Icons nhất quán</li>
+            <li>✅ Layout tab navigation gọn gàng, chuyên nghiệp</li>
+            <li>✅ <strong>Đã sửa:</strong> Icon "person_add" hiển thị đúng (không còn text)</li>
+        </ul>
+    </div>
+</body>
+</html>

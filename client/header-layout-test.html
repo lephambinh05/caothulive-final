@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Layout Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+
+        .client-page header {
+            background: linear-gradient(135deg, #ff0000 0%, #ff4444 100%);
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            position: relative;
+        }
+
+        .client-page header .header-content {
+            position: relative;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .header-brand {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px;
+            flex-shrink: 0;
+            margin-right: auto;
+        }
+
+        .youtube-icon {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin: 0;
+        }
+
+        .header-support-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
+        .support-icon {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            transition: transform 0.2s ease;
+        }
+
+        .header-support-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-support-btn:hover .support-icon {
+            transform: scale(1.1);
+        }
+
+        /* Debug borders */
+        .client-page header .header-content {
+            border: 2px solid red !important;
+        }
+
+        .client-page header .header-content .header-brand {
+            border: 2px solid blue !important;
+        }
+
+        .client-page header .header-content .header-support-btn {
+            border: 2px solid green !important;
+        }
+
+        .test-info {
+            padding: 20px;
+            background: #f0f0f0;
+            margin: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="client-page">
+        <header class="client-header">
+            <div class="header-content">
+                <div class="header-brand">
+                    <svg class="youtube-icon" width="32" height="32" viewBox="0 0 24 24" fill="white">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <h1 class="header-title">Youtube</h1>
+                </div>
+                <button class="header-support-btn" title="Hỗ trợ">
+                    <svg class="support-icon" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+    </div>
+
+        <div class="test-info">
+        <h2>Header Layout Test - Đã cập nhật</h2>
+        <p><strong>Kết quả mong đợi:</strong></p>
+        <ul>
+            <li>🔴 <strong>Đường viền đỏ:</strong> Container header-content (căn giữa màn hình)</li>
+            <li>🔵 <strong>Đường viền xanh dương:</strong> YouTube brand (góc trái)</li>
+            <li>🟢 <strong>Đường viền xanh lá:</strong> Icon hỗ trợ (góc phải)</li>
+        </ul>
+        <p><strong>Kiểm tra:</strong></p>
+        <ul>
+            <li>YouTube (icon + text) phải ở góc trái của header</li>
+            <li>Icon hỗ trợ (headphone) phải ở góc phải của header</li>
+            <li>Không có khoảng trống thừa giữa các element</li>
+            <li><strong>✅ Đã loại bỏ:</strong> Icon tai nghe khỏi phần tab navigation</li>
+        </ul>
+        <p><strong>Thay đổi:</strong></p>
+        <ul>
+            <li>Icon hỗ trợ chỉ còn ở header (góc phải)</li>
+            <li>Không còn icon tai nghe ở floating tabs</li>
+            <li>Layout tab navigation gọn gàng hơn</li>
+            <li><strong>✅ Cập nhật tab:</strong> "Đang phát trực tiếp" → "Trực tiếp"</li>
+            <li><strong>✅ Icon mới:</strong> Sử dụng icon "podcasts" giống thumbnail card</li>
+            <li><strong>✅ Tab "Đăng ký kênh":</strong> "Kênh theo dõi" → "Đăng ký kênh"</li>
+            <li><strong>✅ Icon "Đăng ký kênh":</strong> Emoji TV → Material Icons "person_add"</li>
+        </ul>
+    </div>
+</body>
+</html>

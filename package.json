@@ -1,0 +1,41 @@
+{
+  "name": "youtube-link-manager",
+  "version": "1.0.0",
+  "description": "YouTube Link Manager - React + Node.js",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev-simple": "concurrently \"npm run server-simple\" \"npm run client\"",
+    "server": "nodemon server/index.js",
+    "server-simple": "nodemon server/index-simple.js",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "start": "node server/index.js",
+    "start-simple": "node server/index-simple.js",
+    "seed": "node server/seed-firestore.js",
+    "install-all": "npm install && cd client && npm install"
+  },
+  "dependencies": {
+    "axios": "^1.12.2",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.11.0",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "youtube",
+    "link-manager",
+    "react",
+    "nodejs",
+    "firebase"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

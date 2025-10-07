@@ -1,48 +1,104 @@
-# Firebase Configuration
+# Firebase Security Rules
 
-## Cấu hình Firestore
+This directory contains Firebase Security Rules for your application.
 
-### Composite Indexes
+## 📁 Files
 
-Để hỗ trợ sắp xếp theo priority và created_at, bạn cần tạo composite index sau:
+- `firestore.rules` - Firestore database security rules
+- `storage.rules` - Firebase Storage security rules
+- `deploy_rules.ps1` - PowerShell script to deploy rules (Windows)
+- `deploy_rules.sh` - Bash script to deploy rules (Linux/Mac)
 
-**Collection:** `youtube_links`
-**Fields:**
-- `priority` (Ascending)
-- `created_at` (Descending)
+## 🔐 Security Rules Overview
 
-### Cách tạo index:
+### Firestore Rules
+- **Public Collections**: `youtube_links`, `youtube_channels`, `website_links`, `downloads`, `settings`
+  - ✅ Anyone can read
+  - 🔒 Only authenticated admin can write
 
-1. Vào Firebase Console > Firestore Database
-2. Chọn tab "Indexes"
-3. Click "Create Index"
-4. Collection ID: `youtube_links`
-5. Fields:
-   - Field path: `priority`, Order: `Ascending`
-   - Field path: `created_at`, Order: `Descending`
-6. Click "Create"
+- **Admin Collections**: `admins`
+  - 🔒 Only authenticated admin can read/write
 
-### Cấu trúc dữ liệu
+- **Support Messages**: `support_messages`
+  - ✅ Anyone can create (submit support request)
+  - 🔒 Only admin can read/update
 
-```json
-{
-  "title": "Tiêu đề video",
-  "url": "https://www.youtube.com/watch?v=...",
-  "created_at": "2024-01-01T00:00:00Z",
-  "priority": 1
+### Storage Rules
+- **Downloads Folder**: `/downloads/{fileName}`
+  - ✅ Anyone can read (public downloads)
+  - 🔒 Only authenticated admin can upload/delete
+  - ✅ File validation (max 100MB, .ipa/.apk only)
+
+## 🚀 How to Deploy
+
+### Option 1: Using Scripts (Recommended)
+
+**Windows (PowerShell):**
+```powershell
+cd firebase_config
+.\deploy_rules.ps1
+```
+
+**Linux/Mac (Bash):**
+```bash
+cd firebase_config
+chmod +x deploy_rules.sh
+./deploy_rules.sh
+```
+
+### Option 2: Manual Deployment
+
+```bash
+# Deploy Firestore rules
+firebase deploy --only firestore:rules
+
+# Deploy Storage rules
+firebase deploy --only storage
+```
+
+## ⚠️ Important Notes
+
+1. **Admin Authentication**: Make sure your admin users have `admin: true` in their custom claims
+2. **File Validation**: Storage rules validate file size (max 100MB) and extensions (.ipa/.apk only)
+3. **Public Access**: Downloads are publicly accessible for users to download apps
+4. **Security**: All write operations require admin authentication
+
+## 🔧 Custom Claims Setup
+
+To set admin custom claims for a user:
+
+```javascript
+// In Firebase Admin SDK
+admin.auth().setCustomUserClaims(uid, { admin: true });
+```
+
+## 📝 Rule Structure
+
+### Firestore Rules Pattern
+```javascript
+match /collection/{document} {
+  allow read: if condition;
+  allow write: if condition;
 }
 ```
 
-**Priority levels:**
-- 1: Rất cao (màu đỏ)
-- 2: Cao (màu cam)
-- 3: Trung bình (màu xanh)
-- 4: Thấp (màu xám)
-- 5: Rất thấp (màu xám nhạt)
+### Storage Rules Pattern
+```javascript
+match /b/{bucket}/o/path/{fileName} {
+  allow read: if condition;
+  allow write: if condition;
+}
+```
 
-## Lưu ý
+## 🛡️ Security Features
 
-- Mặc định priority = 3 (trung bình)
-- Video sẽ được sắp xếp theo priority trước, sau đó theo ngày tạo
-- Admin có thể thay đổi priority khi thêm/sửa link
-- Mobile app có bộ lọc theo priority
+- ✅ Public read access for content
+- 🔒 Admin-only write access
+- 📁 File type validation
+- 📏 File size limits
+- 🔐 Authentication required for admin operations
+- 🚫 Default deny for unknown paths
+
+## 📞 Support
+
+If you need to modify these rules, update the respective `.rules` files and redeploy using the scripts above.

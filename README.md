@@ -1,125 +1,201 @@
-# 🎥 YouTube Link Manager
+# YouTube Link Manager - React + Node.js
 
-Ứng dụng quản lý và chia sẻ link YouTube với hệ thống mức độ ưu tiên thông minh.
+Ứng dụng quản lý link YouTube được xây dựng với React và Node.js, giữ nguyên giao diện và tính năng từ phiên bản HTML gốc.
 
-## ✨ Tính năng mới: Mức độ ưu tiên
+## 🚀 Tính năng
 
-### 🎯 Priority System
-- **5 mức độ ưu tiên**: Từ rất cao (1) đến rất thấp (5)
-- **Sắp xếp thông minh**: Video hiển thị theo priority trước, sau đó theo ngày tạo
-- **Bộ lọc linh hoạt**: Mobile app có thể lọc theo từng mức độ ưu tiên
-- **Visual tags**: Hiển thị màu sắc và số priority trên mỗi video
+### Client (Trang chính)
+- **Giao diện hiện đại**: Dark theme với gradient background
+- **Lọc theo trạng thái**: Đang phát trực tiếp, Sắp phát, Đã kết thúc, Tạm dừng, Hủy bỏ
+- **Hero section**: Hiển thị video nổi bật với thumbnail và thông tin
+- **Responsive**: Tương thích mobile và desktop
+- **Auto-fetch**: Tự động lấy thông tin video từ YouTube
 
-### 🔧 Admin Features
-- Đặt mức độ ưu tiên khi thêm/sửa link
-- Giao diện trực quan với 5 nút priority
-- Sắp xếp và quản lý theo priority
-- Hiển thị priority trong bảng admin
+### Admin Panel
+- **Dashboard**: Thống kê tổng quan với charts và metrics
+- **Thêm kênh YouTube**: Form thêm kênh với auto-fetch avatar và thông tin
+- **Quản lý links**: CRUD operations cho YouTube links
+- **Sidebar navigation**: Navigation responsive với Material Icons
+- **Real-time updates**: Cập nhật dữ liệu real-time
 
-### 📱 Mobile Features
-- Bộ lọc priority ở đầu màn hình
-- Tag priority màu sắc trên mỗi video
-- Sắp xếp tự động theo mức độ ưu tiên
-- Giao diện thân thiện với người dùng
+## 🛠️ Công nghệ sử dụng
 
-## 🏗️ Kiến trúc hệ thống
+### Frontend (React)
+- **React 18** với TypeScript
+- **React Router** cho navigation
+- **Material Icons** cho UI icons
+- **CSS3** với custom properties
+- **Axios** cho API calls
+
+### Backend (Node.js)
+- **Express.js** framework
+- **Firebase Admin SDK** cho database
+- **CORS** cho cross-origin requests
+- **Helmet** cho security
+- **Morgan** cho logging
+
+### Database
+- **Cloud Firestore** (Firebase)
+
+## 📁 Cấu trúc project
 
 ```
-📱 Mobile App (Flutter)
-    ↓
-🌐 Admin Web (Flutter Web)
-    ↓
-🔥 Firebase (Firestore + Auth)
+youtube-link-manager/
+├── client/                 # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Client/     # Client components
+│   │   │   └── Admin/      # Admin components
+│   │   ├── services/       # API services
+│   │   ├── types/          # TypeScript types
+│   │   └── firebase.ts     # Firebase config
+│   └── package.json
+├── server/                 # Node.js backend
+│   ├── routes/             # API routes
+│   └── index.js           # Server entry point
+├── package.json           # Root package.json
+└── README.md
 ```
 
-## 📁 Cấu trúc dự án
+## 🚀 Cài đặt và chạy
 
-```
-quanLyLink/
-├── 📱 mobile_app/          # Ứng dụng mobile Flutter
-├── 🌐 admin_web/           # Web admin Flutter
-├── 🔥 firebase_config/     # Cấu hình Firebase
-├── 📚 docs/               # Tài liệu
-└── 📋 README files        # Hướng dẫn
-```
-
-## 🚀 Cài đặt nhanh
-
-### 1. Cài đặt Firebase
+### 1. Clone repository
 ```bash
-# Xem firebase_config/README.md để cài đặt Firebase
+git clone <repository-url>
+cd youtube-link-manager
 ```
 
-### 2. Tạo Composite Index (Bắt buộc)
+### 2. Cài đặt dependencies
 ```bash
-# Vào Firebase Console > Firestore > Indexes
-# Tạo index: priority (Ascending) + created_at (Descending)
+# Cài đặt root dependencies
+npm install
+
+# Cài đặt client dependencies
+cd client && npm install && cd ..
+
+# Hoặc chạy tất cả cùng lúc
+npm run install-all
 ```
 
-### 3. Chạy ứng dụng
+### 3. Cấu hình Firebase
+1. Copy `config.example.js` thành `config.js`
+2. Cập nhật thông tin Firebase:
+   - Project ID
+   - Private Key
+   - Client Email
+3. Cập nhật `client/src/firebase.ts` với config từ Firebase Console
+
+### 4. Chạy ứng dụng
+
+#### Development mode (cả frontend và backend)
 ```bash
-# Admin Web
-cd admin_web && flutter run -d chrome
-
-# Mobile App  
-cd mobile_app && flutter run
+npm run dev
 ```
 
-## 📊 Mức độ ưu tiên
+#### Chạy riêng lẻ
+```bash
+# Backend only
+npm run server
 
-| Level | Tên | Màu sắc | Mô tả |
-|-------|-----|---------|-------|
-| 🟢 1 | Rất cao | Đỏ | Video quan trọng nhất |
-| 🟠 2 | Cao | Cam | Video quan trọng |
-| 🔵 3 | Trung bình | Xanh | Video bình thường |
-| ⚫ 4 | Thấp | Xám | Video ít quan trọng |
-| ⚪ 5 | Rất thấp | Xám nhạt | Video ít quan trọng nhất |
+# Frontend only
+npm run client
+```
 
-## 🔧 Tính năng kỹ thuật
+### 5. Truy cập ứng dụng
+- **Client**: http://localhost:3000
+- **Admin**: http://localhost:3000/admin
+- **API**: http://localhost:5000/api
 
-- **Flutter 3.0+** với null safety
-- **Firebase Firestore** cho database
-- **Firebase Auth** cho authentication
-- **Responsive design** cho web và mobile
-- **Real-time updates** với Firestore streams
-- **Priority-based sorting** với composite indexes
+## 📱 Cách sử dụng
 
-## 📱 Screenshots
+### Client (Trang chính)
+1. Truy cập http://localhost:3000
+2. Sử dụng dropdown "Trạng thái" để lọc video
+3. Click vào video để xem trên YouTube
 
-### Admin Web
-- Dashboard với bảng quản lý priority
-- Form thêm/sửa với selector priority
-- Sắp xếp theo priority và ngày tạo
+### Admin Panel
+1. Truy cập http://localhost:3000/admin
+2. **Dashboard**: Xem thống kê tổng quan
+3. **Thêm kênh YouTube**:
+   - Nhập URL kênh YouTube
+   - Click "Lấy thông tin kênh" để auto-fetch
+   - Điền thông tin và lưu
+4. **Quản lý links**: CRUD operations (sẽ implement)
 
-### Mobile App
-- Home screen với bộ lọc priority
-- Link cards hiển thị priority tags
-- Giao diện thân thiện người dùng
+## 🔧 API Endpoints
 
-## 🆘 Hỗ trợ
+### YouTube Links
+- `GET /api/youtube-links` - Lấy danh sách links
+- `POST /api/youtube-links` - Tạo link mới
+- `PUT /api/youtube-links/:id` - Cập nhật link
+- `DELETE /api/youtube-links/:id` - Xóa link
 
-- 📖 **Hướng dẫn chi tiết**: Xem `SETUP.md`
-- 🔥 **Firebase config**: Xem `firebase_config/README.md`
-- 🐛 **Xử lý lỗi**: Xem phần Troubleshooting trong `SETUP.md`
+### YouTube Channels
+- `GET /api/youtube-channels` - Lấy danh sách kênh
+- `POST /api/youtube-channels` - Tạo kênh mới
+- `PUT /api/youtube-channels/:id` - Cập nhật kênh
+- `DELETE /api/youtube-channels/:id` - Xóa kênh
 
-## 🤝 Đóng góp
+### Admin
+- `GET /api/admin/stats` - Thống kê dashboard
+- `GET /api/admin/recent-activity` - Hoạt động gần đây
 
-1. Fork dự án
-2. Tạo feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Mở Pull Request
+## 🎨 Giao diện
+
+### Client
+- **Dark theme** với gradient background
+- **Hero section** hiển thị video nổi bật
+- **Priority badges** với màu sắc phân biệt trạng thái
+- **Responsive design** cho mobile
+
+### Admin
+- **Light theme** với sidebar navigation
+- **Statistics cards** với icons và trends
+- **Quick actions** cho thao tác nhanh
+- **Form components** với validation
+
+## 🔄 Migration từ HTML
+
+Ứng dụng này được convert từ phiên bản HTML gốc với:
+- ✅ Giữ nguyên giao diện và UX
+- ✅ Convert sang React components
+- ✅ Thêm TypeScript cho type safety
+- ✅ Tách biệt frontend/backend
+- ✅ API RESTful cho data management
+- ✅ Responsive design
+- ✅ Error handling và loading states
+
+## 🚀 Production Deployment
+
+### Build cho production
+```bash
+npm run build
+```
+
+### Deploy
+1. **Frontend**: Deploy `client/build` lên hosting (Netlify, Vercel, etc.)
+2. **Backend**: Deploy `server/` lên VPS hoặc cloud (Heroku, DigitalOcean, etc.)
+3. **Database**: Sử dụng Firebase Firestore
+
+## 📝 TODO
+
+- [ ] Implement authentication
+- [ ] Add real YouTube API integration
+- [ ] Implement link management CRUD
+- [ ] Add user management
+- [ ] Add analytics dashboard
+- [ ] Add push notifications
+- [ ] Add dark/light theme toggle
+- [ ] Add internationalization (i18n)
+
+## 🤝 Contributing
+
+1. Fork repository
+2. Tạo feature branch
+3. Commit changes
+4. Push to branch
+5. Tạo Pull Request
 
 ## 📄 License
 
-Dự án này được phân phối dưới MIT License. Xem file `LICENSE` để biết thêm chi tiết.
-
-## 🙏 Cảm ơn
-
-- Flutter team cho framework tuyệt vời
-- Firebase team cho backend services
-- Cộng đồng Flutter Việt Nam
-
----
-
-**Lưu ý**: Đừng quên tạo composite index trong Firestore để tính năng priority hoạt động!
+MIT License
