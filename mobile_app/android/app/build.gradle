@@ -54,7 +54,7 @@ android {
 
     defaultConfig {
         applicationId "com.quanlylink20m.app"
-        minSdkVersion 21  // Firebase yêu cầu minSdkVersion >= 21
+        minSdkVersion flutter.minSdkVersion  // Firebase yêu cầu minSdkVersion >= 21
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

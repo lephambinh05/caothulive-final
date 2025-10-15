@@ -47,21 +47,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'YOUR_ANDROID_API_KEY',
-    appId: 'YOUR_ANDROID_APP_ID',
-    messagingSenderId: 'YOUR_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_PROJECT_ID.appspot.com',
+    apiKey: 'AIzaSyDnVr2y-CayvAgfBFzZxtGuz68dQn6249w',
+    appId: '1:696748829509:android:8f3feee2ccdd85ac01ac2c',
+    messagingSenderId: '696748829509',
+    projectId: 'quanly20m',
+    storageBucket: 'quanly20m.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'YOUR_IOS_API_KEY',
-    appId: 'YOUR_IOS_APP_ID',
-    messagingSenderId: 'YOUR_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_PROJECT_ID.appspot.com',
-    iosClientId: 'YOUR_IOS_CLIENT_ID',
-    iosBundleId: 'YOUR_IOS_BUNDLE_ID',
+    apiKey: 'AIzaSyDnVr2y-CayvAgfBFzZxtGuz68dQn6249w',
+    appId: '1:696748829509:ios:8f3feee2ccdd85ac01ac2c',
+    messagingSenderId: '696748829509',
+    projectId: 'quanly20m',
+    storageBucket: 'quanly20m.firebasestorage.app',
+    iosClientId: '696748829509-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com',
+    iosBundleId: 'com.quanlylink20m.mobileApp',
   );
 
   static const FirebaseOptions web = FirebaseOptions(

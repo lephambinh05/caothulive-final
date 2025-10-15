@@ -4,8 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../models/youtube_link.dart';
 import '../widgets/link_card.dart';
 import '../config.dart';
-import 'channels_screen.dart';
-import 'support_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,16 +14,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedPriority = 0; // 0 = tất cả, 1-5 = mức độ cụ thể
-  int _currentIndex = 0; // 0 = Videos, 1 = Channels, 2 = Support
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_getAppBarTitle()),
+        title: const Text('YouTube Videos'),
         centerTitle: true,
         elevation: 0,
-        bottom: _currentIndex == 0 ? PreferredSize(
+        bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -83,46 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-        ) : null,
+        ),
       ),
-      body: _getCurrentBody(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.play_circle_outline),
-            label: 'Videos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.subscriptions),
-            label: 'Channels',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.support_agent),
-            label: 'Hỗ trợ',
-          ),
-        ],
-      ),
+      body: _buildVideosBody(),
     );
   }
 
-  Widget _getCurrentBody() {
-    switch (_currentIndex) {
-      case 0:
-        return _buildVideosBody();
-      case 1:
-        return const ChannelsScreen();
-      case 2:
-        return const SupportScreen();
-      default:
-        return _buildVideosBody();
-    }
-  }
 
   Widget _buildVideosBody() {
     return StreamBuilder<QuerySnapshot>(
@@ -259,18 +222,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  String _getAppBarTitle() {
-    switch (_currentIndex) {
-      case 0:
-        return 'YouTube Videos';
-      case 1:
-        return 'YouTube Channels';
-      case 2:
-        return 'Hỗ trợ';
-      default:
-        return 'YouTube Link Manager';
-    }
-  }
 
   Future<void> _openYouTubeLink(String url) async {
     try {
