@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:provider/provider.dart';
 import '../models/youtube_link.dart';
+import '../providers/favorites_provider.dart';
 import '../theme/app_theme.dart';
-import '../config.dart';
 
 class WebsiteVideoCard extends StatelessWidget {
   final YouTubeLink link;
@@ -63,7 +65,7 @@ class WebsiteVideoCard extends StatelessWidget {
                     // Priority Badge
                     Positioned(
                       top: 8,
-                      right: 8,
+                      left: 8,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8,
@@ -81,6 +83,34 @@ class WebsiteVideoCard extends StatelessWidget {
                             fontSize: 12,
                           ),
                         ),
+                      ),
+                    ),
+                    // Favorite Button
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Consumer<FavoritesProvider>(
+                        builder: (context, favoritesProvider, child) {
+                          final isFavorite = favoritesProvider.isVideoFavorite(link.id ?? '');
+                          return GestureDetector(
+                            onTap: () {
+                              HapticFeedback.lightImpact();
+                              favoritesProvider.toggleVideoFavorite(link.id ?? '');
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.6),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                isFavorite ? Icons.favorite : Icons.favorite_border,
+                                color: isFavorite ? Colors.red : Colors.white,
+                                size: 20,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                     // Play Button

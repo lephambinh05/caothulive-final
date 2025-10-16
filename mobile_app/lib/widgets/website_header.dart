@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../theme/app_theme.dart';
+import '../providers/theme_provider.dart';
 
 class WebsiteHeader extends StatelessWidget {
   final String title;
@@ -55,7 +57,7 @@ class WebsiteHeader extends StatelessWidget {
                         Text(
                           'Quản lý video YouTube',
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                           ),
                         ),
                       ],
@@ -64,11 +66,49 @@ class WebsiteHeader extends StatelessWidget {
                 ],
               ),
             ),
+            // Theme Toggle Button
+            Consumer<ThemeProvider>(
+              builder: (context, themeProvider, child) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: IconButton(
+                    onPressed: () => themeProvider.toggleTheme(),
+                    icon: Icon(
+                      themeProvider.themeIcon,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                    tooltip: 'Chuyển đổi giao diện (${themeProvider.themeModeName})',
+                  ),
+                );
+              },
+            ),
+            const SizedBox(width: 8),
+            // Settings Button
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: IconButton(
+                onPressed: () => Navigator.pushNamed(context, '/theme-settings'),
+                icon: const Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                tooltip: 'Cài đặt giao diện',
+              ),
+            ),
+            const SizedBox(width: 8),
             // Support Button
             if (showSupportButton)
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: IconButton(

@@ -1,6 +1,32 @@
-# YouTube Link Manager - React + Node.js
+# 🎥 CaoThuLive - YouTube Link Manager
 
-Ứng dụng quản lý link YouTube được xây dựng với React và Node.js, giữ nguyên giao diện và tính năng từ phiên bản HTML gốc.
+**CaoThuLive** là hệ thống quản lý video YouTube toàn diện với giao diện hiện đại, bao gồm web app, mobile app và admin panel.
+
+## 🏗️ **Kiến trúc hệ thống**
+
+### 📱 **Mobile App (Flutter)**
+- **VideoHub Pro** - Ứng dụng mobile quản lý video YouTube
+- **3 tabs navigation**: Trực tiếp, Kênh, Yêu thích
+- **Dark mode** với Material Design 3
+- **Smart search** và priority filters
+- **Favorites system** với Firebase sync
+
+### 🌐 **Web App (React + TypeScript)**
+- **Client interface** với dark theme
+- **Admin panel** cho quản lý nội dung
+- **Real-time updates** với Firebase
+- **Responsive design** cho mọi thiết bị
+
+### ⚙️ **Backend (Node.js + Express)**
+- **RESTful API** cho tất cả operations
+- **Firebase Admin SDK** integration
+- **Security** với Helmet và CORS
+- **Logging** với Morgan
+
+### 🔥 **Database (Firebase Firestore)**
+- **Real-time database** cho sync data
+- **Collections**: youtube_links, youtube_channels, settings
+- **Security rules** cho data protection
 
 ## 🚀 Tính năng
 

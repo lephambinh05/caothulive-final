@@ -41,6 +41,22 @@ class YouTubeChannel {
     );
   }
 
+  // Tạo từ Map
+  factory YouTubeChannel.fromMap(Map<String, dynamic> data) {
+    return YouTubeChannel(
+      id: data['id'] ?? '',
+      channelId: data['channel_id'] ?? '',
+      channelName: data['channel_name'] ?? '',
+      channelUrl: data['channel_url'] ?? '',
+      avatarUrl: data['avatar_url'],
+      description: data['description'],
+      subscriberCount: data['subscriber_count'],
+      videoCount: data['video_count'],
+      createdAt: (data['created_at'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      updatedAt: (data['updated_at'] as Timestamp?)?.toDate() ?? DateTime.now(),
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'channel_id': channelId,

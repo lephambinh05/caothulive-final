@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
 
 // API Configuration
-const String API_BASE_URL = 'https://api.caothulive.com/api'; // ĐƯỜNG DẪN API
-const String WEBSITE_DOMAIN = 'https://caothulive.com'; // ĐƯỜNG DẪN WEBSITE
+const String apiBaseUrl = 'https://api.caothulive.com/api'; // ĐƯỜNG DẪN API
+const String websiteDomain = 'https://caothulive.com'; // ĐƯỜNG DẪN WEBSITE
 
 // YouTube API Configuration
-const String YOUTUBE_THUMBNAIL_BASE_URL = 'https://img.youtube.com/vi';
-const String YOUTUBE_OEMBED_URL = 'https://www.youtube.com/oembed';
+const String youtubeThumbnailBaseUrl = 'https://img.youtube.com/vi';
+const String youtubeOembedUrl = 'https://www.youtube.com/oembed';
 
 // Placeholder URLs
-const String PLACEHOLDER_AVATAR_URL = 'https://via.placeholder.com/150/FF0000/FFFFFF';
-const String PLACEHOLDER_THUMBNAIL_URL = 'https://via.placeholder.com/80x80/cccccc/666666';
-const String PLACEHOLDER_VIDEO_URL = 'https://via.placeholder.com/1280x720?text=YouTube+Video';
+const String placeholderAvatarUrl = 'https://via.placeholder.com/150/FF0000/FFFFFF';
+const String placeholderThumbnailUrl = 'https://via.placeholder.com/80x80/cccccc/666666';
+const String placeholderVideoUrl = 'https://via.placeholder.com/1280x720?text=YouTube+Video';
 
 // Social Media URLs
-const String FACEBOOK_BASE_URL = 'https://facebook.com';
-const String YOUTUBE_BASE_URL = 'https://www.youtube.com';
+const String facebookBaseUrl = 'https://facebook.com';
+const String youtubeBaseUrl = 'https://www.youtube.com';
 
 // Default Settings
-const Map<String, String> DEFAULT_SETTINGS = {
-  'webDomain': WEBSITE_DOMAIN,
-  'facebook': '$FACEBOOK_BASE_URL/lephambinh.mmo',
+const Map<String, String> defaultSettings = {
+  'webDomain': websiteDomain,
+  'facebook': '$facebookBaseUrl/lephambinh.mmo',
 };
 
 // YouTube Thumbnail Helper Functions
 String getYouTubeThumbnail(String videoId, {String quality = 'hqdefault'}) {
-  return '$YOUTUBE_THUMBNAIL_BASE_URL/$videoId/$quality.jpg';
+  return '$youtubeThumbnailBaseUrl/$videoId/$quality.jpg';
 }
 
 String getYouTubeMaxResThumbnail(String videoId) {
   return videoId.isNotEmpty 
-      ? '$YOUTUBE_THUMBNAIL_BASE_URL/$videoId/maxresdefault.jpg' 
-      : PLACEHOLDER_VIDEO_URL;
+      ? '$youtubeThumbnailBaseUrl/$videoId/maxresdefault.jpg' 
+      : placeholderVideoUrl;
 }
 
 String getYouTubeOEmbedUrl(String url) {
-  return '$YOUTUBE_OEMBED_URL?format=json&url=${Uri.encodeComponent(url)}';
+  return '$youtubeOembedUrl?format=json&url=${Uri.encodeComponent(url)}';
 }
 
 // Avatar Helper Functions
@@ -43,7 +43,7 @@ String getChannelAvatar(String channelId) {
   final initials = channelId.length >= 2 
       ? channelId.substring(0, 2).toUpperCase() 
       : channelId.toUpperCase();
-  return '$PLACEHOLDER_AVATAR_URL?text=$initials';
+  return '$placeholderAvatarUrl?text=$initials';
 }
 
 // URL Helper Functions
@@ -81,12 +81,6 @@ ThemeData getAppTheme() {
       foregroundColor: Colors.white,
       elevation: 0,
       centerTitle: true,
-    ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      selectedItemColor: Colors.red,
-      unselectedItemColor: Colors.grey,
-      type: BottomNavigationBarType.fixed,
     ),
   );
 }

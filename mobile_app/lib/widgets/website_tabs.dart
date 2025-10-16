@@ -14,7 +14,7 @@ class WebsiteTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppTheme.bgWhite,
+      color: Theme.of(context).scaffoldBackgroundColor,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children: [
@@ -27,14 +27,24 @@ class WebsiteTabs extends StatelessWidget {
               activeTab == 'live',
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 8),
           Expanded(
             child: _buildTab(
               context,
               'channel',
-              'Đăng ký kênh',
-              Icons.person_add,
+              'Kênh',
+              Icons.subscriptions,
               activeTab == 'channel',
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: _buildTab(
+              context,
+              'favorites',
+              'Yêu thích',
+              Icons.favorite,
+              activeTab == 'favorites',
             ),
           ),
         ],
@@ -54,7 +64,7 @@ class WebsiteTabs extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
-          color: isActive ? AppTheme.primaryRed : Colors.white,
+          color: isActive ? AppTheme.primaryRed : Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isActive ? AppTheme.primaryRed : Colors.grey.shade300,
@@ -62,7 +72,7 @@ class WebsiteTabs extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -74,7 +84,7 @@ class WebsiteTabs extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: isActive ? Colors.white : AppTheme.textMuted,
+              color: isActive ? Colors.white : Theme.of(context).textTheme.bodyMedium?.color,
               size: 18,
             ),
             const SizedBox(width: 6),
@@ -82,7 +92,7 @@ class WebsiteTabs extends StatelessWidget {
               child: Text(
                 label,
                 style: TextStyle(
-                  color: isActive ? Colors.white : AppTheme.textMuted,
+                  color: isActive ? Colors.white : Theme.of(context).textTheme.bodyMedium?.color,
                   fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
                   fontSize: 13,
                 ),

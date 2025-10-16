@@ -35,14 +35,14 @@ class _WebsiteSupportPageState extends State<WebsiteSupportPage> {
         });
       } else {
         setState(() {
-          supportSettings = DEFAULT_SETTINGS;
+          supportSettings = defaultSettings;
           isLoading = false;
         });
       }
     } catch (e) {
       debugPrint('Error loading support settings: $e');
       setState(() {
-        supportSettings = DEFAULT_SETTINGS;
+        supportSettings = defaultSettings;
         isLoading = false;
       });
     }
@@ -89,7 +89,7 @@ class _WebsiteSupportPageState extends State<WebsiteSupportPage> {
                           Text(
                             'Chúng tôi luôn sẵn sàng hỗ trợ bạn',
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withValues(alpha: 0.9),
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -105,8 +105,8 @@ class _WebsiteSupportPageState extends State<WebsiteSupportPage> {
                         icon: Icons.facebook,
                         title: 'Facebook',
                         subtitle: 'Kết nối với chúng tôi trên Facebook',
-                        value: supportSettings!['facebook'] ?? DEFAULT_SETTINGS['facebook'],
-                        onTap: () => _openUrl(supportSettings!['facebook'] ?? DEFAULT_SETTINGS['facebook']!),
+                        value: supportSettings!['facebook'] ?? defaultSettings['facebook'],
+                        onTap: () => _openUrl(supportSettings!['facebook'] ?? defaultSettings['facebook']!),
                       ),
                       const SizedBox(height: 16),
                       _buildSupportOption(
@@ -173,13 +173,13 @@ class _WebsiteSupportPageState extends State<WebsiteSupportPage> {
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  supportSettings?['web_domain'] ?? WEBSITE_DOMAIN,
+                                  supportSettings?['web_domain'] ?? websiteDomain,
                                   style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
                               IconButton(
                                 icon: const Icon(Icons.open_in_new),
-                                onPressed: () => _openUrl(supportSettings?['web_domain'] ?? WEBSITE_DOMAIN),
+                                onPressed: () => _openUrl(supportSettings?['web_domain'] ?? websiteDomain),
                               ),
                             ],
                           ),
@@ -217,7 +217,7 @@ class _WebsiteSupportPageState extends State<WebsiteSupportPage> {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: AppTheme.primaryRed.withOpacity(0.1),
+                  color: AppTheme.primaryRed.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(

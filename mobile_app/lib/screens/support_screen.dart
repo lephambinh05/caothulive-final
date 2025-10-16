@@ -34,14 +34,14 @@ class _SupportScreenState extends State<SupportScreen> {
         });
       } else {
         setState(() {
-          supportSettings = DEFAULT_SETTINGS;
+          supportSettings = defaultSettings;
           isLoading = false;
         });
       }
     } catch (e) {
       debugPrint('Error loading support settings: $e');
       setState(() {
-        supportSettings = DEFAULT_SETTINGS;
+        supportSettings = defaultSettings;
         isLoading = false;
       });
     }
@@ -113,8 +113,8 @@ class _SupportScreenState extends State<SupportScreen> {
                         icon: Icons.facebook,
                         title: 'Facebook',
                         subtitle: 'Kết nối với chúng tôi trên Facebook',
-                        value: supportSettings!['facebook'] ?? DEFAULT_SETTINGS['facebook'],
-                        onTap: () => _openUrl(supportSettings!['facebook'] ?? DEFAULT_SETTINGS['facebook']!),
+                        value: supportSettings!['facebook'] ?? defaultSettings['facebook'],
+                        onTap: () => _openUrl(supportSettings!['facebook'] ?? defaultSettings['facebook']!),
                       ),
                       const SizedBox(height: 16),
                       _buildSupportOption(
@@ -178,13 +178,13 @@ class _SupportScreenState extends State<SupportScreen> {
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  supportSettings?['web_domain'] ?? WEBSITE_DOMAIN,
+                                  supportSettings?['web_domain'] ?? websiteDomain,
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ),
                               IconButton(
                                 icon: const Icon(Icons.open_in_new),
-                                onPressed: () => _openUrl(supportSettings?['web_domain'] ?? WEBSITE_DOMAIN),
+                                onPressed: () => _openUrl(supportSettings?['web_domain'] ?? websiteDomain),
                               ),
                             ],
                           ),

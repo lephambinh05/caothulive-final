@@ -38,6 +38,20 @@ class YouTubeLink {
     );
   }
 
+  // Tạo từ Map
+  factory YouTubeLink.fromMap(Map<String, dynamic> data) {
+    return YouTubeLink(
+      id: data['id'],
+      title: data['title'] ?? '',
+      url: data['url'] ?? '',
+      createdAt: (data['created_at'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      videoTitle: data['video_title'],
+      videoDescription: data['video_description'],
+      videoDuration: data['video_duration'],
+      priority: data['priority'] ?? 3,
+    );
+  }
+
   // Lấy video ID từ URL YouTube
   String? get videoId {
     RegExp regExp = RegExp(
@@ -58,7 +72,7 @@ class YouTubeLink {
     if (videoId != null) {
       return getYouTubeThumbnail(videoId, quality: 'mqdefault');
     }
-    return PLACEHOLDER_VIDEO_URL;
+    return placeholderVideoUrl;
   }
 
   // URL thumbnail chất lượng cao
@@ -67,7 +81,7 @@ class YouTubeLink {
     if (videoId != null) {
       return getYouTubeThumbnail(videoId, quality: 'hqdefault');
     }
-    return PLACEHOLDER_VIDEO_URL;
+    return placeholderVideoUrl;
   }
 
   // Lấy tên mức độ ưu tiên

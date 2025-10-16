@@ -1,6 +1,6 @@
 {
   "name": "youtube-link-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "YouTube Link Manager - React + Node.js",
   "main": "server/index.js",
   "scripts": {

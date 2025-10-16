@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             const SizedBox(width: 6),
-                            Text('${priority}'),
+                            Text(priority.toString()),
                           ],
                         ),
                         selected: isSelected,
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             _selectedPriority = selected ? priority : 0;
                           });
                         },
-                        selectedColor: getPriorityColor(priority).withOpacity(0.2),
+                        selectedColor: getPriorityColor(priority).withValues(alpha: 0.2),
                         checkmarkColor: getPriorityColor(priority),
                       ),
                     );
@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         var links = docs.map((doc) {
           return YouTubeLink.fromFirestore(doc);
-        }).toList() ?? [];
+        }).toList();
 
         // Lọc theo priority nếu có chọn
         if (_selectedPriority > 0) {

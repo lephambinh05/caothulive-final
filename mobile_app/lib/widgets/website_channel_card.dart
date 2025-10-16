@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:provider/provider.dart';
 import '../models/youtube_channel.dart';
+import '../providers/favorites_provider.dart';
 import '../theme/app_theme.dart';
 import '../config.dart';
 
@@ -115,6 +118,31 @@ class WebsiteChannelCard extends StatelessWidget {
                   ],
                 ),
               ),
+              // Favorite Button
+              Consumer<FavoritesProvider>(
+                builder: (context, favoritesProvider, child) {
+                  final isFavorite = favoritesProvider.isChannelFavorite(channel.id ?? '');
+                  return GestureDetector(
+                    onTap: () {
+                      HapticFeedback.lightImpact();
+                      favoritesProvider.toggleChannelFavorite(channel.id ?? '');
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: isFavorite ? Colors.red.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : AppTheme.textMuted,
+                        size: 20,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(width: 8),
               // Arrow
               Icon(
                 Icons.arrow_forward_ios,

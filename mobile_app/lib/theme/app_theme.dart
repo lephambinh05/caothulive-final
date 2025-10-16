@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTheme {
   // Colors matching website
@@ -11,6 +12,15 @@ class AppTheme {
   static const Color cardWhite = Color(0xFFFFFFFF);
   static const Color glassWhite = Color(0xF2FFFFFF);
   static const Color glassBorder = Color(0x1A000000);
+
+  // Dark theme colors
+  static const Color darkBg = Color(0xFF121212);
+  static const Color darkSurface = Color(0xFF1E1E1E);
+  static const Color darkCard = Color(0xFF2D2D2D);
+  static const Color darkText = Color(0xFFFFFFFF);
+  static const Color darkTextMuted = Color(0xFFB3B3B3);
+  static const Color darkGlass = Color(0xF21E1E1E);
+  static const Color darkGlassBorder = Color(0x1AFFFFFF);
 
   // Priority colors matching website
   static const Color priority1 = Color(0xFFFF0000); // Red
@@ -28,11 +38,9 @@ class AppTheme {
         primary: primaryRed,
         secondary: primaryRedLight,
         surface: bgWhite,
-        background: bgWhite,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: textDark,
-        onBackground: textDark,
       ),
       scaffoldBackgroundColor: bgWhite,
       appBarTheme: const AppBarTheme(
@@ -40,18 +48,12 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         titleTextStyle: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.white,
-        selectedItemColor: primaryRed,
-        unselectedItemColor: textMuted,
-        type: BottomNavigationBarType.fixed,
-        elevation: 8,
       ),
       cardTheme: CardThemeData(
         color: cardWhite,
@@ -106,9 +108,100 @@ class AppTheme {
       ),
       chipTheme: ChipThemeData(
         backgroundColor: bgLight,
-        selectedColor: primaryRed.withOpacity(0.1),
+        selectedColor: primaryRed.withValues(alpha: 0.1),
         labelStyle: const TextStyle(
           color: textDark,
+          fontSize: 14,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+    );
+  }
+
+  static ThemeData get darkTheme {
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryRed,
+        brightness: Brightness.dark,
+        primary: primaryRed,
+        secondary: primaryRedLight,
+        surface: darkSurface,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: darkText,
+      ),
+      scaffoldBackgroundColor: darkBg,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: darkSurface,
+        foregroundColor: darkText,
+        elevation: 0,
+        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: darkText,
+        ),
+      ),
+      cardTheme: CardThemeData(
+        color: darkCard,
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      textTheme: const TextTheme(
+        headlineLarge: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: darkText,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: darkText,
+        ),
+        titleLarge: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: darkText,
+        ),
+        titleMedium: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: darkText,
+        ),
+        bodyLarge: TextStyle(
+          fontSize: 16,
+          color: darkText,
+        ),
+        bodyMedium: TextStyle(
+          fontSize: 14,
+          color: darkText,
+        ),
+        bodySmall: TextStyle(
+          fontSize: 12,
+          color: darkTextMuted,
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryRed,
+          foregroundColor: Colors.white,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: darkCard,
+        selectedColor: primaryRed.withValues(alpha: 0.2),
+        labelStyle: const TextStyle(
+          color: darkText,
           fontSize: 14,
         ),
         shape: RoundedRectangleBorder(
@@ -147,7 +240,7 @@ class AppTheme {
       ),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.05),
+          color: Colors.black.withValues(alpha: 0.05),
           blurRadius: 10,
           offset: const Offset(0, 2),
         ),
@@ -161,6 +254,201 @@ class AppTheme {
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [primaryRed, primaryRedLight],
+    );
+  }
+
+  // Dynamic theme with custom accent color and font size
+  static ThemeData getDynamicLightTheme({
+    Color? accentColor,
+    double fontSize = 1.0,
+  }) {
+    final primary = accentColor ?? primaryRed;
+    final primaryLight = Color.lerp(primary, Colors.white, 0.3) ?? primaryRedLight;
+    
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primary,
+        brightness: Brightness.light,
+        primary: primary,
+        secondary: primaryLight,
+        surface: bgWhite,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: textDark,
+      ),
+      scaffoldBackgroundColor: bgWhite,
+      appBarTheme: AppBarTheme(
+        backgroundColor: primary,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        titleTextStyle: TextStyle(
+          fontSize: 20 * fontSize,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      cardTheme: CardThemeData(
+        color: cardWhite,
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      textTheme: TextTheme(
+        headlineLarge: TextStyle(
+          fontSize: 24 * fontSize,
+          fontWeight: FontWeight.bold,
+          color: textDark,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 20 * fontSize,
+          fontWeight: FontWeight.bold,
+          color: textDark,
+        ),
+        titleLarge: TextStyle(
+          fontSize: 18 * fontSize,
+          fontWeight: FontWeight.w600,
+          color: textDark,
+        ),
+        titleMedium: TextStyle(
+          fontSize: 16 * fontSize,
+          fontWeight: FontWeight.w500,
+          color: textDark,
+        ),
+        bodyLarge: TextStyle(
+          fontSize: 16 * fontSize,
+          color: textDark,
+        ),
+        bodyMedium: TextStyle(
+          fontSize: 14 * fontSize,
+          color: textDark,
+        ),
+        bodySmall: TextStyle(
+          fontSize: 12 * fontSize,
+          color: textMuted,
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primary,
+          foregroundColor: Colors.white,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: bgLight,
+        selectedColor: primary.withValues(alpha: 0.1),
+        labelStyle: TextStyle(
+          color: textDark,
+          fontSize: 14 * fontSize,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+    );
+  }
+
+  static ThemeData getDynamicDarkTheme({
+    Color? accentColor,
+    double fontSize = 1.0,
+  }) {
+    final primary = accentColor ?? primaryRed;
+    final primaryLight = Color.lerp(primary, Colors.white, 0.3) ?? primaryRedLight;
+    
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primary,
+        brightness: Brightness.dark,
+        primary: primary,
+        secondary: primaryLight,
+        surface: darkSurface,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: darkText,
+      ),
+      scaffoldBackgroundColor: darkBg,
+      appBarTheme: AppBarTheme(
+        backgroundColor: darkSurface,
+        foregroundColor: darkText,
+        elevation: 0,
+        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        titleTextStyle: TextStyle(
+          fontSize: 20 * fontSize,
+          fontWeight: FontWeight.bold,
+          color: darkText,
+        ),
+      ),
+      cardTheme: CardThemeData(
+        color: darkCard,
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      textTheme: TextTheme(
+        headlineLarge: TextStyle(
+          fontSize: 24 * fontSize,
+          fontWeight: FontWeight.bold,
+          color: darkText,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 20 * fontSize,
+          fontWeight: FontWeight.bold,
+          color: darkText,
+        ),
+        titleLarge: TextStyle(
+          fontSize: 18 * fontSize,
+          fontWeight: FontWeight.w600,
+          color: darkText,
+        ),
+        titleMedium: TextStyle(
+          fontSize: 16 * fontSize,
+          fontWeight: FontWeight.w500,
+          color: darkText,
+        ),
+        bodyLarge: TextStyle(
+          fontSize: 16 * fontSize,
+          color: darkText,
+        ),
+        bodyMedium: TextStyle(
+          fontSize: 14 * fontSize,
+          color: darkText,
+        ),
+        bodySmall: TextStyle(
+          fontSize: 12 * fontSize,
+          color: darkTextMuted,
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primary,
+          foregroundColor: Colors.white,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: darkCard,
+        selectedColor: primary.withValues(alpha: 0.2),
+        labelStyle: TextStyle(
+          color: darkText,
+          fontSize: 14 * fontSize,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
     );
   }
 }
