@@ -1,5 +1,5 @@
-name: mobile_app
-description: YouTube Link Manager - Mobile App
+name: caothulive_app
+description: CaoThuLive - Live Stream Discovery Hub with AI-Powered Content Analytics
 publish_to: 'none'
 version: 2.0.0+5
 
@@ -10,10 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # firebase_core: ^4.2.0
-  # cloud_firestore: ^6.0.3
-  # firebase_core: ^4.2.0
-  # cloud_firestore: ^6.0.3
   firebase_core: ^4.2.0
   cloud_firestore: ^6.0.3
   url_launcher: ^6.2.4

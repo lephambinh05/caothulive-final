@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../theme/app_theme.dart';
+import '../theme/caothulive_theme.dart';
 
 class CustomSearchBar extends StatefulWidget {
   final String? hintText;
@@ -89,7 +89,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> with TickerProviderSt
                 scale: _scaleAnimation.value,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: isDark ? AppTheme.darkCard : Colors.white,
+                    color: isDark ? CaoThuLiveTheme.backgroundCard : Colors.white,
                     borderRadius: BorderRadius.circular(25),
                     boxShadow: [
                       BoxShadow(
@@ -105,17 +105,17 @@ class _CustomSearchBarState extends State<CustomSearchBar> with TickerProviderSt
                     decoration: InputDecoration(
                       hintText: widget.hintText ?? 'Tìm kiếm video...',
                       hintStyle: TextStyle(
-                        color: isDark ? AppTheme.darkTextMuted : AppTheme.textMuted,
+                        color: isDark ? CaoThuLiveTheme.textMuted : CaoThuLiveTheme.textMuted,
                       ),
                       prefixIcon: Icon(
                         Icons.search,
-                        color: isDark ? AppTheme.darkTextMuted : AppTheme.textMuted,
+                        color: isDark ? CaoThuLiveTheme.textMuted : CaoThuLiveTheme.textMuted,
                       ),
                       suffixIcon: _controller.text.isNotEmpty
                           ? IconButton(
                               icon: Icon(
                                 Icons.clear,
-                                color: isDark ? AppTheme.darkTextMuted : AppTheme.textMuted,
+                                color: isDark ? CaoThuLiveTheme.textMuted : CaoThuLiveTheme.textMuted,
                               ),
                               onPressed: _clearSearch,
                             )
@@ -127,7 +127,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> with TickerProviderSt
                       ),
                     ),
                     style: TextStyle(
-                      color: isDark ? AppTheme.darkText : AppTheme.textDark,
+                      color: isDark ? CaoThuLiveTheme.textPrimary : CaoThuLiveTheme.textPrimary,
                     ),
                   ),
                 ),
@@ -189,13 +189,13 @@ class _CustomSearchBarState extends State<CustomSearchBar> with TickerProviderSt
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected 
-              ? AppTheme.primaryRed 
-              : (isDark ? AppTheme.darkCard : Colors.white),
+              ? CaoThuLiveTheme.primaryRed 
+              : (isDark ? CaoThuLiveTheme.backgroundCard : Colors.white),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isSelected 
-                ? AppTheme.primaryRed 
-                : (isDark ? AppTheme.darkGlassBorder : Colors.grey.shade300),
+                ? CaoThuLiveTheme.primaryRed 
+                : (isDark ? CaoThuLiveTheme.textMuted : Colors.grey.shade300),
             width: 1,
           ),
           boxShadow: [
@@ -216,7 +216,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> with TickerProviderSt
                 decoration: BoxDecoration(
                   color: isSelected 
                       ? Colors.white 
-                      : AppTheme.getPriorityColor(priority),
+                      : CaoThuLiveTheme.getPriorityColor(priority),
                   shape: BoxShape.circle,
                 ),
               ),
@@ -227,7 +227,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> with TickerProviderSt
               size: 16,
               color: isSelected 
                   ? Colors.white 
-                  : (isDark ? AppTheme.darkTextMuted : AppTheme.textMuted),
+                  : (isDark ? CaoThuLiveTheme.textMuted : CaoThuLiveTheme.textMuted),
             ),
             const SizedBox(width: 4),
             Text(
@@ -235,7 +235,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> with TickerProviderSt
               style: TextStyle(
                 color: isSelected 
                     ? Colors.white 
-                    : (isDark ? AppTheme.darkTextMuted : AppTheme.textMuted),
+                    : (isDark ? CaoThuLiveTheme.textMuted : CaoThuLiveTheme.textMuted),
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 fontSize: 12,
               ),
@@ -275,8 +275,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> with TickerProviderSt
         icon: const Icon(Icons.tune, size: 18),
         label: const Text('Tìm kiếm nâng cao'),
         style: ElevatedButton.styleFrom(
-          backgroundColor: isDark ? AppTheme.darkCard : Colors.white,
-          foregroundColor: isDark ? AppTheme.darkText : AppTheme.textDark,
+          backgroundColor: isDark ? CaoThuLiveTheme.backgroundCard : Colors.white,
+          foregroundColor: isDark ? CaoThuLiveTheme.textPrimary : CaoThuLiveTheme.textPrimary,
           elevation: 2,
           padding: const EdgeInsets.symmetric(vertical: 12),
           shape: RoundedRectangleBorder(

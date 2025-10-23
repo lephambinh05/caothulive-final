@@ -8,7 +8,15 @@ import 'screens/website_home_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/theme_settings_screen.dart';
 import 'screens/advanced_search_screen.dart';
+import 'screens/live_analytics_screen.dart';
+import 'screens/news_screen.dart';
+import 'screens/mini_games_screen.dart';
+import 'screens/game_leaderboard_screen.dart';
+import 'screens/settings_screen.dart';
+import 'screens/support_screen.dart';
+import 'screens/daily_quotes_screen.dart';
 import 'theme/app_theme.dart';
+import 'theme/caothulive_theme.dart';
 import 'providers/theme_provider.dart';
 import 'providers/favorites_provider.dart';
 import 'services/notification_service.dart';
@@ -23,6 +31,9 @@ void main() async {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
+      debugPrint('Firebase initialized successfully');
+    } else {
+      debugPrint('Firebase already initialized');
     }
   } catch (e) {
     debugPrint('Firebase init error: $e');
@@ -40,6 +51,7 @@ void main() async {
   } catch (e) {
     debugPrint('GamificationService init error: $e');
   }
+  
 
   runApp(const MobileApp());
 }
@@ -57,15 +69,9 @@ class MobileApp extends StatelessWidget {
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
           return MaterialApp(
-            title: 'VideoHub Pro - Smart YouTube Manager',
-            theme: AppTheme.getDynamicLightTheme(
-              accentColor: themeProvider.accentColor,
-              fontSize: themeProvider.fontSize,
-            ),
-            darkTheme: AppTheme.getDynamicDarkTheme(
-              accentColor: themeProvider.accentColor,
-              fontSize: themeProvider.fontSize,
-            ),
+            title: 'CaoThuLive - Live Stream Discovery Hub',
+            theme: CaoThuLiveTheme.getLightTheme(),
+            darkTheme: CaoThuLiveTheme.getDarkTheme(),
             themeMode: themeProvider.themeMode,
             home: const AppInitializer(),
             routes: {
@@ -73,6 +79,13 @@ class MobileApp extends StatelessWidget {
               '/onboarding': (context) => const OnboardingScreen(),
               '/theme-settings': (context) => const ThemeSettingsScreen(),
               '/advanced-search': (context) => const AdvancedSearchScreen(),
+              '/live-analytics': (context) => const LiveAnalyticsScreen(),
+              '/news': (context) => const NewsScreen(),
+              '/mini-games': (context) => const MiniGamesScreen(),
+              '/game-leaderboard': (context) => const GameLeaderboardScreen(),
+              '/daily-quotes': (context) => const DailyQuotesScreen(),
+              '/settings': (context) => const SettingsScreen(),
+              '/support': (context) => const SupportScreen(),
             },
             debugShowCheckedModeBanner: false,
           );

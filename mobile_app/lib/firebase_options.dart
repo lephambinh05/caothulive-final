@@ -47,8 +47,8 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDnVr2y-CayvAgfBFzZxtGuz68dQn6249w',
-    appId: '1:696748829509:android:8f3feee2ccdd85ac01ac2c',
+    apiKey: 'AIzaSyA1aJN0ZK2XJ7Ye86n6A9gi2Z2o8KoohWg',
+    appId: '1:696748829509:android:0a033739d2a44a4d01ac2c',
     messagingSenderId: '696748829509',
     projectId: 'quanly20m',
     storageBucket: 'quanly20m.firebasestorage.app',

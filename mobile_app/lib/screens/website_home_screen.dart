@@ -10,10 +10,10 @@ import '../widgets/website_tabs.dart';
 import '../widgets/website_video_card.dart';
 import '../widgets/website_channel_card.dart';
 import '../widgets/website_support_page.dart';
-import '../widgets/search_bar.dart';
 import '../widgets/skeleton_loader.dart';
 import '../providers/favorites_provider.dart';
-import '../theme/app_theme.dart';
+import '../theme/caothulive_theme.dart';
+import '../services/ai_content_discovery_service.dart';
 
 class WebsiteHomeScreen extends StatefulWidget {
   const WebsiteHomeScreen({super.key});
@@ -25,65 +25,57 @@ class WebsiteHomeScreen extends StatefulWidget {
 class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
   String activeTab = 'live';
   List<WebsiteLink> websiteLinks = [];
-  String searchQuery = '';
-  int selectedPriority = 0;
   bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Column(
-        children: [
+      body: CustomScrollView(
+        slivers: [
           // Header
-          WebsiteHeader(
-            title: 'VideoHub Pro',
-            onSupportTap: () {
-              _showSupportDialog();
-            },
-          ),
-          // Search Bar
-          if (activeTab != 'favorites')
-            CustomSearchBar(
-              hintText: activeTab == 'live' ? 'Tìm kiếm video...' : 'Tìm kiếm kênh...',
-              onSearch: (query) {
-                setState(() {
-                  searchQuery = query;
-                });
+          SliverToBoxAdapter(
+            child: WebsiteHeader(
+              title: 'CaoThuLive',
+              onSupportTap: () {
+                _showSupportDialog();
               },
-              onClear: () {
-                setState(() {
-                  searchQuery = '';
-                });
+              onRouteChanged: (route) {
+                Navigator.pushNamed(context, route);
               },
-              onPriorityFilter: (priority) {
-                setState(() {
-                  selectedPriority = priority;
-                });
-              },
-              selectedPriority: selectedPriority,
-              showFilters: activeTab == 'live',
             ),
+          ),
           // Tabs
-          WebsiteTabs(
-            activeTab: activeTab,
-            onTabChanged: (tab) {
-              setState(() {
-                activeTab = tab;
-                searchQuery = '';
-                selectedPriority = 0;
-              });
-            },
+          SliverToBoxAdapter(
+            child: WebsiteTabs(
+              activeTab: activeTab,
+              onTabChanged: (tab) {
+                setState(() {
+                  activeTab = tab;
+                });
+              },
+            ),
           ),
           // Content
-          Expanded(
-            child: _buildContent(),
-          ),
+          _buildSliverContent(),
         ],
       ),
     );
   }
 
+
+  Widget _buildSliverContent() {
+    switch (activeTab) {
+      case 'live':
+        return _buildSliverVideosContent();
+      case 'channel':
+        return _buildSliverChannelsContent();
+      case 'favorites':
+        return _buildSliverFavoritesContent();
+      default:
+        return _buildSliverVideosContent();
+    }
+  }
 
   Widget _buildContent() {
     switch (activeTab) {
@@ -98,16 +90,81 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
     }
   }
 
-  Widget _buildVideosContent() {
+  Widget _buildSliverVideosContent() {
+    // Build query
+    Query query = FirebaseFirestore.instance.collection('youtube_links');
+    
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('youtube_links')
-          .orderBy('priority', descending: false)
-          .orderBy('created_at', descending: true)
-          .snapshots(),
+      stream: query.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return _buildErrorWidget('Có lỗi xảy ra', 'Không thể tải danh sách video');
+          return SliverToBoxAdapter(
+            child: _buildErrorWidget('Có lỗi xảy ra', 'Không thể tải danh sách video: ${snapshot.error}'),
+          );
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SliverToBoxAdapter(
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(color: CaoThuLiveTheme.primaryRed),
+                  SizedBox(height: 16),
+                  Text('Đang tải danh sách video...'),
+                ],
+              ),
+            ),
+          );
+        }
+
+        final docs = snapshot.data?.docs ?? [];
+        
+        final links = docs.map((doc) {
+          try {
+            return YouTubeLink.fromFirestore(doc);
+          } catch (e) {
+            return null;
+          }
+        }).where((link) => link != null).cast<YouTubeLink>().toList();
+        
+        if (links.isEmpty) {
+          return SliverToBoxAdapter(
+            child: _buildEmptyWidget(
+              'Chưa có video nào',
+              'Hãy đợi admin thêm video',
+            ),
+          );
+        }
+
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final link = links[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: WebsiteVideoCard(
+                  link: link,
+                  onTap: () => _openYouTubeLinkWithTracking(link),
+                ),
+              );
+            },
+            childCount: links.length,
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildVideosContent() {
+    // Build query
+    Query query = FirebaseFirestore.instance.collection('youtube_links');
+    
+    return StreamBuilder<QuerySnapshot>(
+      stream: query.snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return _buildErrorWidget('Có lỗi xảy ra', 'Không thể tải danh sách video: ${snapshot.error}');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -115,7 +172,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(color: AppTheme.primaryRed),
+                CircularProgressIndicator(color: CaoThuLiveTheme.primaryRed),
                 SizedBox(height: 16),
                 Text('Đang tải danh sách video...'),
               ],
@@ -127,7 +184,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
         final links = docs.map((doc) {
           return YouTubeLink.fromFirestore(doc);
         }).toList();
-
+        
         if (links.isEmpty) {
           return _buildEmptyWidget(
             'Chưa có video nào',
@@ -139,7 +196,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
           onRefresh: () async {
             setState(() {});
           },
-          color: AppTheme.primaryRed,
+          color: CaoThuLiveTheme.primaryRed,
           child: ListView.builder(
             padding: const EdgeInsets.all(20),
             itemCount: links.length,
@@ -150,6 +207,67 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
                 onTap: () => _openYouTubeLink(link.url),
               );
             },
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildSliverChannelsContent() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('youtube_channels')
+          .orderBy('created_at', descending: true)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return SliverToBoxAdapter(
+            child: _buildErrorWidget('Có lỗi xảy ra', 'Không thể tải danh sách kênh: ${snapshot.error}'),
+          );
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SliverToBoxAdapter(
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(color: CaoThuLiveTheme.primaryRed),
+                  SizedBox(height: 16),
+                  Text('Đang tải danh sách kênh...'),
+                ],
+              ),
+            ),
+          );
+        }
+
+        final docs = snapshot.data?.docs ?? [];
+        final channels = docs.map((doc) {
+          return YouTubeChannel.fromFirestore(doc);
+        }).toList();
+
+        if (channels.isEmpty) {
+          return SliverToBoxAdapter(
+            child: _buildEmptyWidget(
+              'Chưa có kênh nào',
+              'Hãy đợi admin thêm kênh YouTube',
+            ),
+          );
+        }
+
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final channel = channels[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: WebsiteChannelCard(
+                  channel: channel,
+                  onTap: () => _openChannel(channel.channelUrl),
+                ),
+              );
+            },
+            childCount: channels.length,
           ),
         );
       },
@@ -172,7 +290,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(color: AppTheme.primaryRed),
+                CircularProgressIndicator(color: CaoThuLiveTheme.primaryRed),
                 SizedBox(height: 16),
                 Text('Đang tải danh sách kênh...'),
               ],
@@ -196,7 +314,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
           onRefresh: () async {
             setState(() {});
           },
-          color: AppTheme.primaryRed,
+          color: CaoThuLiveTheme.primaryRed,
           child: ListView.builder(
             padding: const EdgeInsets.all(20),
             itemCount: channels.length,
@@ -221,7 +339,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
           const Icon(
             Icons.error_outline,
             size: 64,
-            color: AppTheme.primaryRed,
+            color: CaoThuLiveTheme.primaryRed,
           ),
           const SizedBox(height: 16),
           Text(
@@ -234,7 +352,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
           Text(
             subtitle,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppTheme.textMuted,
+              color: CaoThuLiveTheme.textMuted,
             ),
           ),
           const SizedBox(height: 16),
@@ -257,7 +375,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
           Icon(
             activeTab == 'live' ? Icons.playlist_play : Icons.subscriptions,
             size: 64,
-            color: AppTheme.textMuted,
+            color: CaoThuLiveTheme.textMuted,
           ),
           const SizedBox(height: 16),
           Text(
@@ -271,13 +389,30 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
           Text(
             subtitle,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppTheme.textMuted,
+              color: CaoThuLiveTheme.textMuted,
             ),
             textAlign: TextAlign.center,
           ),
         ],
       ),
     );
+  }
+
+  Future<void> _openYouTubeLinkWithTracking(YouTubeLink link) async {
+    try {
+      // Track click for trending analytics
+      if (link.id != null) {
+        await AIContentDiscoveryService.trackVideoClick(link.id!);
+      }
+      
+      // Open YouTube link
+      final uri = Uri.parse(link.url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      }
+    } catch (e) {
+      debugPrint('Error opening YouTube link: $e');
+    }
   }
 
   Future<void> _openYouTubeLink(String url) async {
@@ -314,6 +449,55 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
     );
   }
 
+  Widget _buildSliverFavoritesContent() {
+    return Consumer<FavoritesProvider>(
+      builder: (context, favoritesProvider, child) {
+        final favoriteVideoIds = favoritesProvider.favoriteVideoIds;
+        final favoriteChannelIds = favoritesProvider.favoriteChannelIds;
+        
+        if (favoriteVideoIds.isEmpty && favoriteChannelIds.isEmpty) {
+          return SliverToBoxAdapter(
+            child: _buildEmptyFavoritesWidget(),
+          );
+        }
+
+        return SliverToBoxAdapter(
+          child: DefaultTabController(
+            length: 2,
+            child: Column(
+              children: [
+                TabBar(
+                  labelColor: CaoThuLiveTheme.primaryRed,
+                  unselectedLabelColor: Theme.of(context).textTheme.bodyMedium?.color,
+                  indicatorColor: CaoThuLiveTheme.primaryRed,
+                  tabs: [
+                    Tab(
+                      icon: Icon(Icons.play_circle_outline),
+                      text: 'Video (${favoriteVideoIds.length})',
+                    ),
+                    Tab(
+                      icon: Icon(Icons.subscriptions),
+                      text: 'Kênh (${favoriteChannelIds.length})',
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 400, // Fixed height for TabBarView
+                  child: TabBarView(
+                    children: [
+                      _buildFavoriteVideos(favoriteVideoIds),
+                      _buildFavoriteChannels(favoriteChannelIds),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildFavoritesContent() {
     return Consumer<FavoritesProvider>(
       builder: (context, favoritesProvider, child) {
@@ -329,9 +513,9 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
           child: Column(
             children: [
               TabBar(
-                labelColor: AppTheme.primaryRed,
+                labelColor: CaoThuLiveTheme.primaryRed,
                 unselectedLabelColor: Theme.of(context).textTheme.bodyMedium?.color,
-                indicatorColor: AppTheme.primaryRed,
+                indicatorColor: CaoThuLiveTheme.primaryRed,
                 tabs: [
                   Tab(
                     icon: Icon(Icons.play_circle_outline),
@@ -437,7 +621,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
           onRefresh: () async {
             setState(() {});
           },
-          color: AppTheme.primaryRed,
+          color: CaoThuLiveTheme.primaryRed,
           child: ListView.builder(
             padding: const EdgeInsets.all(20),
             itemCount: links.length,
@@ -502,7 +686,7 @@ class _WebsiteHomeScreenState extends State<WebsiteHomeScreen> {
           onRefresh: () async {
             setState(() {});
           },
-          color: AppTheme.primaryRed,
+          color: CaoThuLiveTheme.primaryRed,
           child: ListView.builder(
             padding: const EdgeInsets.all(20),
             itemCount: channels.length,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
+import '../theme/caothulive_theme.dart';
 
 class WebsiteTabs extends StatelessWidget {
   final String activeTab;
@@ -64,10 +64,10 @@ class WebsiteTabs extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
-          color: isActive ? AppTheme.primaryRed : Theme.of(context).cardColor,
+          color: isActive ? CaoThuLiveTheme.primaryRed : Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isActive ? AppTheme.primaryRed : Colors.grey.shade300,
+            color: isActive ? CaoThuLiveTheme.primaryRed : Colors.grey.shade300,
             width: 1,
           ),
           boxShadow: [

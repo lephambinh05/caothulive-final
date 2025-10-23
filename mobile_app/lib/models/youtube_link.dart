@@ -11,6 +11,11 @@ class YouTubeLink {
   final String? videoDescription;
   final String? videoDuration;
   final int priority; // Mức độ ưu tiên: 1 (cao nhất) đến 5 (thấp nhất)
+  final String? category;
+  final String? status;
+  final int clickCount; // Số lượt click
+  final DateTime? lastClickedAt; // Thời gian click cuối cùng
+  final double trendingScore; // Điểm trending
 
   YouTubeLink({
     this.id,
@@ -21,6 +26,11 @@ class YouTubeLink {
     this.videoDescription,
     this.videoDuration,
     this.priority = 3, // Mặc định là mức trung bình
+    this.category,
+    this.status = 'live',
+    this.clickCount = 0,
+    this.lastClickedAt,
+    this.trendingScore = 0.0,
   });
 
   // Tạo từ Firestore document
@@ -30,11 +40,20 @@ class YouTubeLink {
       id: doc.id,
       title: data['title'] ?? '',
       url: data['url'] ?? '',
-      createdAt: (data['created_at'] as Timestamp).toDate(),
+      createdAt: data['created_at'] != null 
+          ? (data['created_at'] as Timestamp).toDate()
+          : DateTime.now(),
       videoTitle: data['video_title'],
       videoDescription: data['video_description'],
       videoDuration: data['video_duration'],
       priority: data['priority'] ?? 3,
+      category: data['category'],
+      status: data['status'] ?? 'live',
+      clickCount: data['click_count'] ?? 0,
+      lastClickedAt: data['last_clicked_at'] != null 
+          ? (data['last_clicked_at'] as Timestamp).toDate() 
+          : null,
+      trendingScore: (data['trending_score'] ?? 0.0).toDouble(),
     );
   }
 
@@ -49,6 +68,8 @@ class YouTubeLink {
       videoDescription: data['video_description'],
       videoDuration: data['video_duration'],
       priority: data['priority'] ?? 3,
+      category: data['category'],
+      status: data['status'] ?? 'live',
     );
   }
 

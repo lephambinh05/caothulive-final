@@ -4,6 +4,9 @@ class YouTubeChannel {
   final String id;
   final String channelId;
   final String channelName;
+  
+  // Alias for channelName to match the error
+  String get name => channelName;
   final String channelUrl;
   final String? avatarUrl;
   final String? description;
