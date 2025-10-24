@@ -1,6 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Internet permission -->
+    <!-- Required permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Needed for notifications on Android 13+ -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Vibration for local notifications -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Network state & wake lock (analytics / background work) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:label="CaoThuLive - Tin tức & Minigame"

@@ -1,7 +1,7 @@
 name: caothulive_app
 description: CaoThuLive - Ứng dụng tổng hợp tin tức và minigame số 1 Việt Nam
 publish_to: "none"
-version: 2.0.0+5
+version: 3.0.0+1
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
