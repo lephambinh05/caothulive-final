@@ -1,10 +1,10 @@
 name: caothulive_app
-description: CaoThuLive - Live Stream Discovery Hub with AI-Powered Content Analytics
-publish_to: 'none'
+description: CaoThuLive - Ứng dụng tổng hợp tin tức và minigame số 1 Việt Nam
+publish_to: "none"
 version: 2.0.0+5
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
   flutter: ">=3.0.0"
 
 dependencies:
@@ -19,22 +19,22 @@ dependencies:
   provider: ^6.1.2
   shared_preferences: ^2.2.3
   shimmer: ^3.0.0
-  
+
   # Smart Notifications
   flutter_local_notifications: ^17.2.3
   permission_handler: ^11.3.1
-  
+
   # Content Categorization & AI
   http: ^1.2.2
   json_annotation: ^4.9.0
-  
+
   # Sharing System
   share_plus: ^10.0.2
-  
+
   # Gamification
   fl_chart: ^0.69.0
   intl: ^0.19.0
-  
+
   # Analytics & Tracking
   firebase_analytics: ^12.0.3
 
