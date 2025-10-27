@@ -35,7 +35,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.quanlylink20m.app"
+    namespace "com.caothulive.newsapp"
     compileSdkVersion 35
     ndkVersion flutter.ndkVersion
 
@@ -54,7 +54,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.quanlylink20m.app"
+        applicationId "com.caothulive.newsapp"
         minSdkVersion 23  // Cloud Firestore yêu cầu minSdkVersion >= 23
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()

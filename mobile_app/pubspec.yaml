@@ -42,6 +42,21 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/CAOTHULIVE.png"
+  # Adaptive icon for Android 8.0+
+  adaptive_icon_foreground: "assets/icon/CAOTHULIVE.png"
+  adaptive_icon_background: "#000000"  # Màu nền đen cho phù hợp với CaoThuLive
+  # iOS specific
+  remove_alpha_ios: true
 
 flutter:
   uses-material-design: true
+  
+  # Đăng ký assets
+  assets:
+    - assets/icon/

@@ -71,7 +71,7 @@ Discover and manage your favorite YouTube content with our intelligent app!
 Download now and join the community!
 ''';
 
-    const shareUrl = 'https://play.google.com/store/apps/details?id=com.quanlylink20m.app';
+    const shareUrl = 'https://play.google.com/store/apps/details?id=com.caothulive.newsapp';
 
     try {
       await Share.share(
@@ -98,7 +98,7 @@ $description
 I just unlocked this achievement in VideoHub Pro! 
 
 Download the app and start your journey:
-https://play.google.com/store/apps/details?id=com.quanlylink20m.app
+https://play.google.com/store/apps/details?id=com.caothulive.newsapp
 ''';
 
     try {
@@ -126,7 +126,7 @@ $description
 Join me in this daily challenge in VideoHub Pro!
 
 Download the app:
-https://play.google.com/store/apps/details?id=com.quanlylink20m.app
+https://play.google.com/store/apps/details?id=com.caothulive.newsapp
 ''';
 
     try {

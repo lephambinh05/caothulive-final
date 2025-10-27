@@ -57,11 +57,10 @@ class DefaultFirebaseOptions {
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDnVr2y-CayvAgfBFzZxtGuz68dQn6249w',
     appId: '1:696748829509:ios:8f3feee2ccdd85ac01ac2c',
-    messagingSenderId: '696748829509',
-    projectId: 'quanly20m',
+    messagingSenderId: '696748829509',    projectId: 'quanly20m',
     storageBucket: 'quanly20m.firebasestorage.app',
     iosClientId: '696748829509-abcdefghijklmnopqrstuvwxyz123456.apps.googleusercontent.com',
-    iosBundleId: 'com.quanlylink20m.mobileApp',
+    iosBundleId: 'com.caothulive.newsapp',
   );
 
   static const FirebaseOptions web = FirebaseOptions(
