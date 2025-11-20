@@ -58,6 +58,7 @@ dart run flutter_launcher_icons
 - `CAOTHULIVE.png` - Icon chính thức ✅
 - `QUICK_START.md` - Hướng dẫn nhanh
 - `create_placeholder_icon.py` - Script tạo icon mẫu (nếu cần)
+	(Đã di chuyển sang `tooling/scripts/create_placeholder_icon.py` để nó không bị đóng gói vào bundle ứng dụng.)
 
 ---
 

@@ -57,6 +57,7 @@ flutter_icons:
 flutter:
   uses-material-design: true
   
-  # Đăng ký assets
+  # Đăng ký assets (liệt kê tệp cụ thể để tránh đóng gói file không cần thiết)
   assets:
-    - assets/icon/
+    - assets/icon/CAOTHULIVE.png
+    - assets/quotes.json
